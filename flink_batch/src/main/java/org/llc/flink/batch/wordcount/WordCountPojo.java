@@ -6,7 +6,7 @@ import org.apache.flink.api.java.DataSet;
 import org.apache.flink.api.java.ExecutionEnvironment;
 import org.apache.flink.util.Collector;
 
-
+//https://www.cnblogs.com/jiashengmei/p/10567343.html  insert mysql
 public class WordCountPojo {
 
 
@@ -64,6 +64,7 @@ public class WordCountPojo {
                                 (ReduceFunction<Word>) (value1, value2) -> new Word(
                                         value1.word, value1.frequency + value2.frequency));
         counts.print();
+
     }
 
 
