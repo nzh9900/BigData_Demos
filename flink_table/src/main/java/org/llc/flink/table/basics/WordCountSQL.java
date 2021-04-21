@@ -1,5 +1,3 @@
-
-
 package org.llc.flink.table.basics;
 
 import org.apache.flink.api.java.DataSet;
@@ -12,8 +10,10 @@ import static org.apache.flink.table.api.Expressions.$;
 /**
  * Simple example that shows how the Batch SQL API is used in Java.
  *
- * <p>This example shows how to: - Convert DataSets to Tables - Register a Table under a name - Run
- * a SQL query on the registered Table
+ * This example shows how to:
+ * - Convert DataSets to Tables
+ * - Register a Table under a name
+ * - Run a SQL query on the registered Table
  */
 public class WordCountSQL {
 
@@ -27,16 +27,16 @@ public class WordCountSQL {
         ExecutionEnvironment env = ExecutionEnvironment.getExecutionEnvironment();
         BatchTableEnvironment tEnv = BatchTableEnvironment.create(env);
 
-        DataSet<WC> input =
-                env.fromElements(new WC("Hello", 1), new WC("Ciao", 1), new WC("Hello", 1));
+        DataSet<WC> input = env.fromElements(
+                        new WC("Hello", 1),
+                        new WC("Ciao", 1),
+                        new WC("Hello", 1));
 
         // register the DataSet as a view "WordCount"
         tEnv.createTemporaryView("WordCount", input, $("word"), $("frequency"));
 
         // run a SQL query on the Table and retrieve the result as a new Table
-        Table table =
-                tEnv.sqlQuery(
-                        "SELECT word, SUM(frequency) as frequency FROM WordCount GROUP BY word");
+        Table table = tEnv.sqlQuery("SELECT word, SUM(frequency) as frequency FROM WordCount GROUP BY word");
 
         DataSet<WC> result = tEnv.toDataSet(table, WC.class);
 
@@ -47,13 +47,16 @@ public class WordCountSQL {
     //     USER DATA TYPES
     // *************************************************************************
 
-    /** Simple POJO containing a word and its respective count. */
+    /**
+     * Simple POJO containing a word and its respective count.
+     */
     public static class WC {
         public String word;
         public long frequency;
 
         // public constructor to make it a Flink POJO
-        public WC() {}
+        public WC() {
+        }
 
         public WC(String word, long frequency) {
             this.word = word;
