@@ -1,4 +1,4 @@
-package org.llc.flink.stream.util;
+package org.llc.flink.stream.wordcount;
 
 
 public class WordCountData {

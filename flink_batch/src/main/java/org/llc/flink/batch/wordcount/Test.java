@@ -4,6 +4,9 @@ import org.apache.flink.api.java.ExecutionEnvironment;
 import org.apache.flink.api.java.io.CsvReader;
 import org.apache.flink.api.java.operators.DataSource;
 import org.apache.flink.api.java.tuple.Tuple3;
+import org.apache.flink.streaming.api.datastream.DataStream;
+import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
+import org.apache.flink.streaming.api.functions.source.SourceFunction;
 
 import java.util.List;
 
@@ -42,6 +45,25 @@ public class Test {
                 .lineDelimiter("\n")
                 .fieldDelimiter(",")
                 .types(String.class,String.class,String.class);
+
+        final StreamExecutionEnvironment senv = StreamExecutionEnvironment.getExecutionEnvironment();
+
+        DataStream<Tuple3<String, String, String>> dataStream = senv.addSource(new SourceFunction<>() {
+
+            @Override
+            public void run(SourceContext<Tuple3<String, String, String>> sourceContext) throws Exception {
+                sourceContext.collect((Tuple3<String, String, String>) ds0.get(0));
+            }
+
+            @Override
+            public void cancel() {
+
+            }
+        });
+
+        dataStream.addSink(new Flink2JdbcWriter());
+
+        senv.execute("save to mysql");
 
 
         ds.print();
