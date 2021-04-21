@@ -47,12 +47,7 @@ public class TPCHQuery3 {
         // Filter market segment "AUTOMOBILE"
         customers =
                 customers.filter(
-                        new FilterFunction<Customer>() {
-                            @Override
-                            public boolean filter(Customer c) {
-                                return c.getMktsegment().equals("AUTOMOBILE");
-                            }
-                        });
+                        (FilterFunction<Customer>) c -> c.getMktsegment().equals("AUTOMOBILE"));
 
         // Filter all Orders with o_orderdate < 12.03.1995
         orders =
@@ -87,16 +82,11 @@ public class TPCHQuery3 {
                         .where(0)
                         .equalTo(1)
                         .with(
-                                new JoinFunction<Customer, Order, ShippingPriorityItem>() {
-                                    @Override
-                                    public ShippingPriorityItem join(Customer c, Order o) {
-                                        return new ShippingPriorityItem(
-                                                o.getOrderKey(),
-                                                0.0,
-                                                o.getOrderdate(),
-                                                o.getShippriority());
-                                    }
-                                });
+                                (JoinFunction<Customer, Order, ShippingPriorityItem>) (c, o) -> new ShippingPriorityItem(
+                                        o.getOrderKey(),
+                                        0.0,
+                                        o.getOrderdate(),
+                                        o.getShippriority()));
 
         // Join the last join result with Lineitems
         DataSet<ShippingPriorityItem> result =
@@ -105,14 +95,9 @@ public class TPCHQuery3 {
                         .where(0)
                         .equalTo(0)
                         .with(
-                                new JoinFunction<
-                                        ShippingPriorityItem, Lineitem, ShippingPriorityItem>() {
-                                    @Override
-                                    public ShippingPriorityItem join(
-                                            ShippingPriorityItem i, Lineitem l) {
-                                        i.setRevenue(l.getExtendedprice() * (1 - l.getDiscount()));
-                                        return i;
-                                    }
+                                (JoinFunction<ShippingPriorityItem, Lineitem, ShippingPriorityItem>) (i, l) -> {
+                                    i.setRevenue(l.getExtendedprice() * (1 - l.getDiscount()));
+                                    return i;
                                 })
                         // Group by l_orderkey, o_orderdate and o_shippriority and compute revenue
                         // sum
@@ -228,16 +213,14 @@ public class TPCHQuery3 {
     //     UTIL METHODS
     // *************************************************************************
 
-    private static DataSet<Lineitem> getLineitemDataSet(
-            ExecutionEnvironment env, String lineitemPath) {
+    private static DataSet<Lineitem> getLineitemDataSet(ExecutionEnvironment env, String lineitemPath) {
         return env.readCsvFile(lineitemPath)
                 .fieldDelimiter("|")
                 .includeFields("1000011000100000")
                 .tupleType(Lineitem.class);
     }
 
-    private static DataSet<Customer> getCustomerDataSet(
-            ExecutionEnvironment env, String customerPath) {
+    private static DataSet<Customer> getCustomerDataSet(ExecutionEnvironment env, String customerPath) {
         return env.readCsvFile(customerPath)
                 .fieldDelimiter("|")
                 .includeFields("10000010")

@@ -10,8 +10,7 @@ import org.apache.flink.streaming.api.functions.sink.RichSinkFunction;
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
 
-public class Flink2JdbcWriter extends
-        RichSinkFunction<Tuple3<String, String, String>> {
+public class Flink2JdbcWriter extends RichSinkFunction<Tuple3<String, String, String>> {
     private static final long serialVersionUID = -8930276689109741501L;
 
     private Connection connect = null;
@@ -37,7 +36,7 @@ public class Flink2JdbcWriter extends
     }
 
     @Override
-    public void close() throws Exception {
+    public void close() {
         try {
             super.close();
             if (connect != null) {

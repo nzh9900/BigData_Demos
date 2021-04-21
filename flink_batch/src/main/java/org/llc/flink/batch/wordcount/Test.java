@@ -22,20 +22,15 @@ public class Test {
         csvReader.setCharset("GBK");
 
 
-        List ds0 = csvReader.includeFields("011100")     //����csv�ļ��е��ֶ��Ƿ��ȡ1�����ȡ,0������ȡ
-                .includeFields("11100")
-//                .ignoreFirstLine()          //�Ƿ���ӵ�һ��
-                .ignoreInvalidLines()       //���ڲ��Ϸ������Ƿ����
-                .ignoreComments("##")       //���Ӵ���##�ŵ���
-                .lineDelimiter("\n")        //�зָ���
-                .fieldDelimiter(",")        //�зָ���
+        List<Tuple3<String, String, String>> ds0 = csvReader.includeFields("011100")     //����csv�ļ��е��ֶ��Ƿ��ȡ1�����ȡ,0������ȡ
+                .includeFields("111111")
+//                .ignoreFirstLine()
+                .ignoreInvalidLines()
+                .ignoreComments("##")
+                .lineDelimiter("\n")
+                .fieldDelimiter(",")
                 .types(String.class,String.class,String.class)
-                .filter(d->{
-                    System.out.println(d.f0);
-                    String str = d.f0;
-                    System.out.println(str.contains(bj));
-                    return str.contains(bj) || str.contains(bj2);
-                }).collect();
+                .filter(d-> d.f0.contains(bj) || d.f0.contains(bj2)).collect();
 
         DataSource<Tuple3<String, String, String>> ds = env.readCsvFile(path)
                 .includeFields("011100")
@@ -52,7 +47,8 @@ public class Test {
 
             @Override
             public void run(SourceContext<Tuple3<String, String, String>> sourceContext) throws Exception {
-                sourceContext.collect((Tuple3<String, String, String>) ds0.get(0));
+                Tuple3 tuple3 = new Tuple3(ds0.get(0).f1, ds0.get(1).f1, null);
+                sourceContext.collect(tuple3);
             }
 
             @Override
@@ -64,7 +60,6 @@ public class Test {
         dataStream.addSink(new Flink2JdbcWriter());
 
         senv.execute("save to mysql");
-
 
         ds.print();
     }

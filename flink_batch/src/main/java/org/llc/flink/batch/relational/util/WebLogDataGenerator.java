@@ -7,26 +7,8 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.Random;
 
-/** Data generator for the {@link WebLogAnalysis} example program. */
 public class WebLogDataGenerator {
 
-    /**
-     * Main method to generate data for the {@link WebLogAnalysis} example program.
-     *
-     * <p>The generator creates to files:
-     *
-     * <ul>
-     *   <li><code>{tmp.dir}/documents</code> for the web documents
-     *   <li><code>{tmp.dir}/ranks</code> for the ranks of the web documents
-     *   <li><code>{tmp.dir}/visits</code> for the logged visits of web documents
-     * </ul>
-     *
-     * @param args
-     *     <ol>
-     *       <li>Int: Number of web documents
-     *       <li>Int: Number of visits
-     *     </ol>
-     */
     public static void main(String[] args) {
 
         // parse parameters

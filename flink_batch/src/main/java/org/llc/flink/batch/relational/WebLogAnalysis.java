@@ -11,6 +11,7 @@ import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.api.java.tuple.Tuple3;
 import org.apache.flink.api.java.utils.ParameterTool;
 import org.apache.flink.util.Collector;
+import org.llc.flink.batch.relational.util.WebLogData;
 
 public class WebLogAnalysis {
 
@@ -118,7 +119,7 @@ public class WebLogAnalysis {
          * <p>Output Format: 0: URL 1: DATE
          */
         @Override
-        public boolean filter(Tuple2<String, String> value) throws Exception {
+        public boolean filter(Tuple2<String, String> value) {
             // Parse date string with the format YYYY-MM-DD and extract the year
             String dateString = value.f1;
             int year = Integer.parseInt(dateString.substring(0, 4));
@@ -131,18 +132,11 @@ public class WebLogAnalysis {
      * all pairs of the second input are emitted. Otherwise, no pair is emitted.
      */
     @ForwardedFieldsFirst("*")
-    public static class AntiJoinVisits
-            implements CoGroupFunction<
+    public static class AntiJoinVisits implements CoGroupFunction<
                     Tuple3<Integer, String, Integer>,
                     Tuple1<String>,
                     Tuple3<Integer, String, Integer>> {
 
-        /**
-         * If the visit iterator is empty, all pairs of the rank iterator are emitted. Otherwise, no
-         * pair is emitted.
-         *
-         * <p>Output Format: 0: RANK 1: URL 2: AVG_DURATION
-         */
         @Override
         public void coGroup(
                 Iterable<Tuple3<Integer, String, Integer>> ranks,
@@ -162,9 +156,7 @@ public class WebLogAnalysis {
     //     UTIL METHODS
     // *************************************************************************
 
-    private static DataSet<Tuple2<String, String>> getDocumentsDataSet(
-            ExecutionEnvironment env, ParameterTool params) {
-        // Create DataSet for documents relation (URL, Doc-Text)
+    private static DataSet<Tuple2<String, String>> getDocumentsDataSet(ExecutionEnvironment env, ParameterTool params) {
         if (params.has("documents")) {
             return env.readCsvFile(params.get("documents"))
                     .fieldDelimiter("|")
@@ -172,13 +164,11 @@ public class WebLogAnalysis {
         } else {
             System.out.println("Executing WebLogAnalysis example with default documents data set.");
             System.out.println("Use --documents to specify file input.");
-            return org.llc.flink.batch.wordcount.relational.util.WebLogData.getDocumentDataSet(env);
+            return WebLogData.getDocumentDataSet(env);
         }
     }
 
-    private static DataSet<Tuple3<Integer, String, Integer>> getRanksDataSet(
-            ExecutionEnvironment env, ParameterTool params) {
-        // Create DataSet for ranks relation (Rank, URL, Avg-Visit-Duration)
+    private static DataSet<Tuple3<Integer, String, Integer>> getRanksDataSet(ExecutionEnvironment env, ParameterTool params) {
         if (params.has("ranks")) {
             return env.readCsvFile(params.get("ranks"))
                     .fieldDelimiter("|")
@@ -186,13 +176,12 @@ public class WebLogAnalysis {
         } else {
             System.out.println("Executing WebLogAnalysis example with default ranks data set.");
             System.out.println("Use --ranks to specify file input.");
-            return org.llc.flink.batch.wordcount.relational.util.WebLogData.getRankDataSet(env);
+            return WebLogData.getRankDataSet(env);
         }
     }
 
-    private static DataSet<Tuple2<String, String>> getVisitsDataSet(
-            ExecutionEnvironment env, ParameterTool params) {
-        // Create DataSet for visits relation (URL, Date)
+    private static DataSet<Tuple2<String, String>> getVisitsDataSet(ExecutionEnvironment env, ParameterTool params) {
+
         if (params.has("visits")) {
             return env.readCsvFile(params.get("visits"))
                     .fieldDelimiter("|")
@@ -201,7 +190,7 @@ public class WebLogAnalysis {
         } else {
             System.out.println("Executing WebLogAnalysis example with default visits data set.");
             System.out.println("Use --visits to specify file input.");
-            return org.llc.flink.batch.wordcount.relational.util.WebLogData.getVisitDataSet(env);
+            return WebLogData.getVisitDataSet(env);
         }
     }
 }
