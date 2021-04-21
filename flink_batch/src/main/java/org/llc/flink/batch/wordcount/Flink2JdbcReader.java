@@ -27,7 +27,7 @@ public class Flink2JdbcReader extends
     public void open(Configuration parameters) throws Exception {
         super.open(parameters);
         Class.forName("com.mysql.jdbc.Driver");
-        connect = (Connection) DriverManager.getConnection("jdbc:mysql://119.28.90.234:3305", "llc", "Simicas@2021");
+        connect = (Connection) DriverManager.getConnection("jdbc:mysql://www.basic-auth.com:3305", "llc", "Simicas@2021");
         ps = (PreparedStatement) connect
                 .prepareStatement("select col1,col2,col3,col4,col5,col6,col7,col8,col9,col10 from flink.test_tb");
     }

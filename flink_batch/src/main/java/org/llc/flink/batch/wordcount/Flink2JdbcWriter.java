@@ -21,7 +21,7 @@ public class Flink2JdbcWriter extends
     public void open(Configuration parameters) throws Exception {
         super.open(parameters);
         Class.forName("com.mysql.jdbc.Driver");
-        connect = (Connection) DriverManager.getConnection("jdbc:mysql://119.28.90.234:3305/analyses?characterEncoding=utf-8&useSSL=false", "llc", "Simicas@2021");
+        connect = (Connection) DriverManager.getConnection("jdbc:mysql://www.basic-auth.com:3305/analyses?characterEncoding=utf-8&useSSL=false", "llc", "Simicas@2021");
         ps = (PreparedStatement) connect.prepareStatement("insert into profit values (?,?,?,?)");
     }
 
