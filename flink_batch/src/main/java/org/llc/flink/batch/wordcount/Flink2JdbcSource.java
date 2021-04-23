@@ -10,19 +10,13 @@ import org.apache.flink.streaming.api.functions.source.RichSourceFunction;
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
 
-public class Flink2JdbcReader extends
+public class Flink2JdbcSource extends
         RichSourceFunction<Tuple10<String, String, String, String, String, String, String, String, String, String>> {
     private static final long serialVersionUID = 3334654984018091675L;
 
     private Connection connect = null;
     private PreparedStatement ps = null;
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see org.apache.flink.api.common.functions.AbstractRichFunction#open(org.
-     * apache.flink.configuration.Configuration) to use open database connect
-     */
     @Override
     public void open(Configuration parameters) throws Exception {
         super.open(parameters);
@@ -32,14 +26,6 @@ public class Flink2JdbcReader extends
                 .prepareStatement("select col1,col2,col3,col4,col5,col6,col7,col8,col9,col10 from flink.test_tb");
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * org.apache.flink.streaming.api.functions.source.SourceFunction#run(org.
-     * apache.flink.streaming.api.functions.source.SourceFunction.SourceContext)
-     * to use excuted sql and return result
-     */
     @Override
     public void run(
             SourceContext<Tuple10<String, String, String, String, String, String, String, String, String, String>> collect)
@@ -55,13 +41,6 @@ public class Flink2JdbcReader extends
 
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see
-     * org.apache.flink.streaming.api.functions.source.SourceFunction#cancel()
-     * colse database connect
-     */
     @Override
     public void cancel() {
         try {

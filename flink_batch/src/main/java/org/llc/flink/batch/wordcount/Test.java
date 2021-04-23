@@ -2,13 +2,11 @@ package org.llc.flink.batch.wordcount;
 
 import org.apache.flink.api.java.ExecutionEnvironment;
 import org.apache.flink.api.java.io.CsvReader;
-import org.apache.flink.api.java.operators.DataSource;
 import org.apache.flink.api.java.tuple.Tuple5;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.api.functions.source.SourceFunction;
 
-import java.util.Date;
 import java.util.List;
 
 
@@ -65,7 +63,7 @@ public class Test {
             }
         });
 
-        dataStream.addSink(new Flink2JdbcWriter());
+        dataStream.addSink(new Flink2JdbcSink());
 
         senv.execute("save to mysql");
 
