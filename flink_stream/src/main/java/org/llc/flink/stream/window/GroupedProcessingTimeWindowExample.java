@@ -37,9 +37,10 @@ public class GroupedProcessingTimeWindowExample {
                 //			.apply(new SummingWindowFunction())
 
                 .addSink(
-                        new SinkFunction<Tuple2<Long, Long>>() {
+                        new SinkFunction<>() {
                             @Override
-                            public void invoke(Tuple2<Long, Long> value) {}
+                            public void invoke(Tuple2<Long, Long> value) {
+                            }
                         });
 
         env.execute();

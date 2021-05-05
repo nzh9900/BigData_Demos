@@ -9,7 +9,6 @@ import org.apache.flink.api.java.functions.FunctionAnnotation.ForwardedFieldsFir
 import org.apache.flink.api.java.tuple.Tuple1;
 import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.api.java.tuple.Tuple3;
-import org.apache.flink.api.java.utils.ParameterTool;
 import org.apache.flink.util.Collector;
 import org.llc.flink.batch.relational.util.WebLogData;
 
@@ -18,65 +17,47 @@ public class WebLogAnalysis {
 
     public static void main(String[] args) throws Exception {
 
-        final ParameterTool params = ParameterTool.fromArgs(args);
 
         final ExecutionEnvironment env = ExecutionEnvironment.getExecutionEnvironment();
 
-        env.getConfig().setGlobalJobParameters(params);
+        DataSet<Tuple2<String, String>> documents = getDocumentsDataSet(env);
+        DataSet<Tuple3<Integer, String, Integer>> ranks = getRanksDataSet(env);
+        DataSet<Tuple2<String, String>> visits = getVisitsDataSet(env);
 
-        // get input data
-        DataSet<Tuple2<String, String>> documents = getDocumentsDataSet(env, params);
-        DataSet<Tuple3<Integer, String, Integer>> ranks = getRanksDataSet(env, params);
-        DataSet<Tuple2<String, String>> visits = getVisitsDataSet(env, params);
+        DataSet<Tuple1<String>> filterDocs = documents
+                .filter((aa)-> aa.f1.contains(" editors "))
+                .project(0);
 
-        // Retain documents with keywords
-        DataSet<Tuple1<String>> filterDocs = documents.filter(new FilterDocByKeyWords()).project(0);
 
-        // Filter ranks by minimum rank
-        DataSet<Tuple3<Integer, String, Integer>> filterRanks = ranks.filter(new FilterByRank());
+        DataSet<Tuple3<Integer, String, Integer>> filterRanks =
+                ranks.filter(new FilterByRank());
 
-        // Filter visits by visit date
-        DataSet<Tuple1<String>> filterVisits = visits.filter(new FilterVisitsByDate()).project(0);
+        DataSet<Tuple1<String>> filterVisits = visits
+                .filter(new FilterVisitsByDate())
+                .project(0);
 
-        // Join the filtered documents and ranks, i.e., get all URLs with min rank and keywords
         DataSet<Tuple3<Integer, String, Integer>> joinDocsRanks =
-                filterDocs.join(filterRanks).where(0).equalTo(1).projectSecond(0, 1, 2);
+                filterDocs.join(filterRanks)
+                        .where(0)
+                        .equalTo(1)
+                        .projectSecond(0, 1, 2);
 
-        // Anti-join urls with visits, i.e., retain all URLs which have NOT been visited in a
-        // certain time
         DataSet<Tuple3<Integer, String, Integer>> result =
-                joinDocsRanks.coGroup(filterVisits).where(1).equalTo(0).with(new AntiJoinVisits());
+                joinDocsRanks.coGroup(filterVisits)
+                        .where(1)
+                        .equalTo(0)
+                        .with(new AntiJoinVisits());
 
-        // emit result
-        if (params.has("output")) {
-            result.writeAsCsv(params.get("output"), "\n", "|");
-            // execute program
-            env.execute("WebLogAnalysis Example");
-        } else {
-            System.out.println("Printing result to stdout. Use --output to specify output path.");
-            result.print();
-        }
+        result.print();
     }
 
-    // *************************************************************************
-    //     USER FUNCTIONS
-    // *************************************************************************
-
-    /** MapFunction that filters for documents that contain a certain set of keywords. */
     public static class FilterDocByKeyWords implements FilterFunction<Tuple2<String, String>> {
 
         private static final String[] KEYWORDS = {" editors ", " oscillations "};
 
-        /**
-         * Filters for documents that contain all of the given keywords and projects the records on
-         * the URL field.
-         *
-         * <p>Output Format: 0: URL 1: DOCUMENT_TEXT
-         */
+
         @Override
         public boolean filter(Tuple2<String, String> value) throws Exception {
-            // FILTER
-            // Only collect the document if all keywords are contained
             String docText = value.f1;
             for (String kw : KEYWORDS) {
                 if (!docText.contains(kw)) {
@@ -87,55 +68,35 @@ public class WebLogAnalysis {
         }
     }
 
-    /** MapFunction that filters for records where the rank exceeds a certain threshold. */
     public static class FilterByRank implements FilterFunction<Tuple3<Integer, String, Integer>> {
 
         private static final int RANKFILTER = 40;
 
-        /**
-         * Filters for records of the rank relation where the rank is greater than the given
-         * threshold.
-         *
-         * <p>Output Format: 0: RANK 1: URL 2: AVG_DURATION
-         */
         @Override
         public boolean filter(Tuple3<Integer, String, Integer> value) throws Exception {
             return (value.f0 > RANKFILTER);
         }
     }
 
-    /**
-     * MapFunction that filters for records of the visits relation where the year (from the date
-     * string) is equal to a certain value.
-     */
+
     public static class FilterVisitsByDate implements FilterFunction<Tuple2<String, String>> {
 
         private static final int YEARFILTER = 2007;
 
-        /**
-         * Filters for records of the visits relation where the year of visit is equal to a
-         * specified value. The URL of all visit records passing the filter is emitted.
-         *
-         * <p>Output Format: 0: URL 1: DATE
-         */
         @Override
         public boolean filter(Tuple2<String, String> value) {
-            // Parse date string with the format YYYY-MM-DD and extract the year
             String dateString = value.f1;
             int year = Integer.parseInt(dateString.substring(0, 4));
             return (year == YEARFILTER);
         }
     }
 
-    /**
-     * CoGroupFunction that realizes an anti-join. If the first input does not provide any pairs,
-     * all pairs of the second input are emitted. Otherwise, no pair is emitted.
-     */
+
     @ForwardedFieldsFirst("*")
     public static class AntiJoinVisits implements CoGroupFunction<
-                    Tuple3<Integer, String, Integer>,
-                    Tuple1<String>,
-                    Tuple3<Integer, String, Integer>> {
+            Tuple3<Integer, String, Integer>,
+            Tuple1<String>,
+            Tuple3<Integer, String, Integer>> {
 
         @Override
         public void coGroup(
@@ -152,45 +113,16 @@ public class WebLogAnalysis {
         }
     }
 
-    // *************************************************************************
-    //     UTIL METHODS
-    // *************************************************************************
-
-    private static DataSet<Tuple2<String, String>> getDocumentsDataSet(ExecutionEnvironment env, ParameterTool params) {
-        if (params.has("documents")) {
-            return env.readCsvFile(params.get("documents"))
-                    .fieldDelimiter("|")
-                    .types(String.class, String.class);
-        } else {
-            System.out.println("Executing WebLogAnalysis example with default documents data set.");
-            System.out.println("Use --documents to specify file input.");
-            return WebLogData.getDocumentDataSet(env);
-        }
+    private static DataSet<Tuple2<String, String>> getDocumentsDataSet(ExecutionEnvironment env) {
+        return WebLogData.getDocumentDataSet(env);
     }
 
-    private static DataSet<Tuple3<Integer, String, Integer>> getRanksDataSet(ExecutionEnvironment env, ParameterTool params) {
-        if (params.has("ranks")) {
-            return env.readCsvFile(params.get("ranks"))
-                    .fieldDelimiter("|")
-                    .types(Integer.class, String.class, Integer.class);
-        } else {
-            System.out.println("Executing WebLogAnalysis example with default ranks data set.");
-            System.out.println("Use --ranks to specify file input.");
-            return WebLogData.getRankDataSet(env);
-        }
+    private static DataSet<Tuple3<Integer, String, Integer>> getRanksDataSet(ExecutionEnvironment env) {
+        return WebLogData.getRankDataSet(env);
     }
 
-    private static DataSet<Tuple2<String, String>> getVisitsDataSet(ExecutionEnvironment env, ParameterTool params) {
-
-        if (params.has("visits")) {
-            return env.readCsvFile(params.get("visits"))
-                    .fieldDelimiter("|")
-                    .includeFields("011000000")
-                    .types(String.class, String.class);
-        } else {
-            System.out.println("Executing WebLogAnalysis example with default visits data set.");
-            System.out.println("Use --visits to specify file input.");
-            return WebLogData.getVisitDataSet(env);
-        }
+    private static DataSet<Tuple2<String, String>> getVisitsDataSet(ExecutionEnvironment env) {
+        return WebLogData.getVisitDataSet(env);
     }
+
 }

@@ -9,7 +9,7 @@ import org.apache.flink.streaming.api.functions.source.SourceFunction;
 
 import java.util.List;
 
-
+//https://www.cnblogs.com/tree1123/p/12155955.html  DataSet常用API
 public class Test {
     static final String bj = "每股收益";
     static final String bj2 = "报告日期";

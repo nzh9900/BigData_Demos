@@ -24,8 +24,7 @@ public class WordCount {
         env.execute("Streaming WordCount");
     }
 
-    public static final class Tokenizer
-            implements FlatMapFunction<String, Tuple2<String, Integer>> {
+    public static final class Tokenizer implements FlatMapFunction<String, Tuple2<String, Integer>> {
 
         @Override
         public void flatMap(String value, Collector<Tuple2<String, Integer>> out) {
