@@ -1,9 +1,7 @@
-import org.apache.flink.api.java.functions.KeySelector
-import org.apache.flink.api.scala.ExecutionEnvironment
+package base
+
 import org.apache.flink.streaming.api.functions.sink.SinkFunction
 import org.apache.flink.streaming.api.scala.{ StreamExecutionEnvironment, createTypeInformation }
-
-import scala.tools.nsc.io.Socket
 
 /**
  * program: java_flink

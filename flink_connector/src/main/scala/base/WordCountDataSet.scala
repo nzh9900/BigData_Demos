@@ -1,6 +1,7 @@
-import org.apache.flink.api.common.functions.FilterFunction
-import org.apache.flink.api.scala.{ ExecutionEnvironment, createTypeInformation }
-import org.apache.flink.streaming.api.scala.StreamExecutionEnvironment
+package base
+
+import org.apache.flink.api.scala.ExecutionEnvironment
+import org.apache.flink.streaming.api.scala.createTypeInformation
 
 /**
  * program: java_flink
@@ -21,7 +22,6 @@ object WordCountDataSet {
             .groupBy(0).sum(1)
 
         resultDS.print()
-
 
 
     }
