@@ -15,11 +15,20 @@
         <module>impala_download</module>
         <module>demo1</module>
         <module>flink_connector</module>
+        <module>flink-java</module>
     </modules>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.13</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
 
 </project>
