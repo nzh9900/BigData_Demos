@@ -3,6 +3,7 @@ package com.ni.dataStreamApi.custom.documentExample.socket;
 import org.apache.kafka.clients.producer.*;
 
 import java.util.Properties;
+import java.util.Random;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
@@ -13,7 +14,7 @@ import java.util.concurrent.Future;
  * 3.异步回调发送
  */
 public class SendKafkaMessage {
-    private final static String TOPIC_NAME = "kafka_sink_test";
+    private final static String TOPIC_NAME = "waterdrop_test";
 
 
     public static void main(String[] args) throws ExecutionException, InterruptedException {
@@ -32,7 +33,7 @@ public class SendKafkaMessage {
     //############## producer异步向指定topic发送数据 ##################
     public static void producerSend() throws InterruptedException {
         Properties properties = new Properties();
-        properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "10.24.69.3:9092");
         properties.put(ProducerConfig.ACKS_CONFIG, "all");
         properties.put(ProducerConfig.RETRIES_CONFIG, "0");
         properties.put(ProducerConfig.BATCH_SIZE_CONFIG, "16384");
@@ -45,13 +46,16 @@ public class SendKafkaMessage {
         Producer<String, Object> producer = new KafkaProducer<String, Object>(properties);
         int num = 0;
         int records = 0;
-        while (num <= 1000) {
-            for (int i = 0; i < 10; i++) {
+        Random random = new Random();
+        while (num <= 60) {
+            for (int i = 0; i < 200; i++) {
                 //消息对象 ProducerRecord
-                ProducerRecord producerRecord = new ProducerRecord<String, String>(TOPIC_NAME, "a" + i + "," + i);
+                String value = "{\"id\":%s,\"name\":\"jackop\",\"gender\":\"female\",\"age\":\"2029-03-10 10:44:57\"}";
+                int id = random.nextInt();
+                ProducerRecord producerRecord = new ProducerRecord<String, String>(TOPIC_NAME, String.format(value, id));
                 producer.send(producerRecord);
             }
-            Thread.sleep(1000);
+            Thread.sleep(10000);
             System.out.println("sending:  " + records++);
             num++;
         }
