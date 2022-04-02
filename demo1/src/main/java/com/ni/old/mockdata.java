@@ -1,4 +1,4 @@
-package com.ni;
+package com.ni.old;
 
 public class mockdata {
     public static void main(String[] args) {

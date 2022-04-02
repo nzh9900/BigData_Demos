@@ -2,6 +2,9 @@ package com.ni.dataStreamApi.custom.documentExample.socket;
 
 import org.apache.kafka.clients.producer.*;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Properties;
 import java.util.Random;
 import java.util.concurrent.ExecutionException;
@@ -14,12 +17,15 @@ import java.util.concurrent.Future;
  * 3.异步回调发送
  */
 public class SendKafkaMessage {
-    private final static String TOPIC_NAME = "waterdrop_test";
+    private final static String TOPIC_NAME = "xinye_test";
 
 
-    public static void main(String[] args) throws ExecutionException, InterruptedException {
+    public static void main(String[] args) throws ExecutionException, InterruptedException, IOException {
+        // poc数据发送
+        pocSend();
+
         //Producer异步发送
-        producerSend();
+        //producerSend();
 
 /*        //Prducer异步阻塞发送
         producerSyncSend();
@@ -28,6 +34,32 @@ public class SendKafkaMessage {
         callBackProducerSend();*/
 
 
+    }
+
+    private static void pocSend() throws IOException {
+        Properties properties = new Properties();
+        properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "10.24.69.3:9092");
+        properties.put(ProducerConfig.ACKS_CONFIG, "all");
+        properties.put(ProducerConfig.RETRIES_CONFIG, "0");
+        properties.put(ProducerConfig.BATCH_SIZE_CONFIG, "16384");
+        properties.put(ProducerConfig.LINGER_MS_CONFIG, "1");
+        properties.put(ProducerConfig.BUFFER_MEMORY_CONFIG, "33554432");
+
+        properties.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer");
+        properties.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer");
+
+        Producer<String, Object> producer = new KafkaProducer<String, Object>(properties);
+        BufferedReader pocData = new BufferedReader(new FileReader("/home/ni/桌面/厂商POC实时测试用例/实时流测试数据集/test_data_for_poc"));
+        String line = null;
+        while ((line = pocData.readLine()) != null) {
+            ProducerRecord producerRecord = new ProducerRecord<String, String>(TOPIC_NAME, line);
+            producer.send(producerRecord);
+            //System.out.println(line);
+        }
+
+        pocData.close();
+        //所有的通道打卡都需要关闭
+        producer.close();
     }
 
     //############## producer异步向指定topic发送数据 ##################
