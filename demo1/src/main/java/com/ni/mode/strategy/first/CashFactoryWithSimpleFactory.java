@@ -1,4 +1,4 @@
-package com.ni.mode.strategy;
+package com.ni.mode.strategy.first;
 
 public class CashFactoryWithSimpleFactory {
 

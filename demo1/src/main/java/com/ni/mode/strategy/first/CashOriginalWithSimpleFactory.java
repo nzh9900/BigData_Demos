@@ -1,4 +1,4 @@
-package com.ni.mode.strategy;
+package com.ni.mode.strategy.first;
 
 public class CashOriginalWithSimpleFactory implements CashSuperWithSimpleFactory {
     @Override
