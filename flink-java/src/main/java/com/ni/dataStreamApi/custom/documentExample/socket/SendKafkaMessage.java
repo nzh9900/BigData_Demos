@@ -17,7 +17,7 @@ import java.util.concurrent.Future;
  * 3.异步回调发送
  */
 public class SendKafkaMessage {
-    private final static String TOPIC_NAME = "xinye_test";
+    private final static String TOPIC_NAME = "sydsj_ngx";
 
 
     public static void main(String[] args) throws ExecutionException, InterruptedException, IOException {
@@ -38,7 +38,7 @@ public class SendKafkaMessage {
 
     private static void pocSend() throws IOException {
         Properties properties = new Properties();
-        properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "10.24.69.3:9092");
+        properties.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "cdp01.cdpbigdata.com:9092");
         properties.put(ProducerConfig.ACKS_CONFIG, "all");
         properties.put(ProducerConfig.RETRIES_CONFIG, "0");
         properties.put(ProducerConfig.BATCH_SIZE_CONFIG, "16384");
