@@ -39,18 +39,18 @@
         </dependency>
 
 
-<!--        <dependency>-->
-<!--            <groupId>org.apache.flink</groupId>-->
-<!--            <artifactId>flink-clients_2.11</artifactId>-->
-<!--            <version>${flink.version}</version>-->
-<!--            <scope>provided</scope>-->
-<!--&lt;!&ndash;            <exclusions>&ndash;&gt;-->
-<!--&lt;!&ndash;                <exclusion>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <artifactId>commons-cli</artifactId>&ndash;&gt;-->
-<!--&lt;!&ndash;                    <groupId>commons-cli</groupId>&ndash;&gt;-->
-<!--&lt;!&ndash;                </exclusion>&ndash;&gt;-->
-<!--&lt;!&ndash;            </exclusions>&ndash;&gt;-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.apache.flink</groupId>-->
+        <!--            <artifactId>flink-clients_2.11</artifactId>-->
+        <!--            <version>${flink.version}</version>-->
+        <!--            <scope>provided</scope>-->
+        <!--&lt;!&ndash;            <exclusions>&ndash;&gt;-->
+        <!--&lt;!&ndash;                <exclusion>&ndash;&gt;-->
+        <!--&lt;!&ndash;                    <artifactId>commons-cli</artifactId>&ndash;&gt;-->
+        <!--&lt;!&ndash;                    <groupId>commons-cli</groupId>&ndash;&gt;-->
+        <!--&lt;!&ndash;                </exclusion>&ndash;&gt;-->
+        <!--&lt;!&ndash;            </exclusions>&ndash;&gt;-->
+        <!--        </dependency>-->
 
         <dependency>
             <groupId>org.apache.flink</groupId>
@@ -108,6 +108,10 @@
                 <exclusion>
                     <groupId>org.apache.calcite.avatica</groupId>
                     <artifactId>avatica</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.hadoop</groupId>
+                    <artifactId>hadoop-common</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -188,7 +192,8 @@
                                 </filter>
                             </filters>
                             <transformers>
-                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                                     <mainClass>my.programs.main.clazz</mainClass>
                                 </transformer>
                             </transformers>
