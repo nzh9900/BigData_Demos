@@ -120,12 +120,12 @@
         <!--            <version>${hadoop.version}</version>-->
         <!--            <scope>provided</scope>-->
         <!--        </dependency>-->
-        <!--        <dependency>-->
-        <!--            <groupId>org.apache.hadoop</groupId>-->
-        <!--            <artifactId>hadoop-common</artifactId>-->
-        <!--            <version>${hadoop.version}</version>-->
+               <dependency>
+                   <groupId>org.apache.hadoop</groupId>
+                   <artifactId>hadoop-common</artifactId>
+                   <version>${hadoop.version}</version>
         <!--            <scope>provided</scope>-->
-        <!--        </dependency>-->
+              </dependency>
         <!--        <dependency>-->
         <!--            <groupId>org.apache.hadoop</groupId>-->
         <!--            <artifactId>hadoop-mapreduce-client-common</artifactId>-->
