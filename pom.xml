@@ -16,6 +16,7 @@
         <module>demo1</module>
         <module>flink_connector</module>
         <module>flink-java</module>
+        <module>flink_udf</module>
     </modules>
 
     <properties>
@@ -28,6 +29,12 @@
             <artifactId>httpclient</artifactId>
             <version>4.5.13</version>
             <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sap.cloud.db.jdbc</groupId>
+            <artifactId>ngdbc</artifactId>
+            <version>2.4.51</version>
         </dependency>
     </dependencies>
 

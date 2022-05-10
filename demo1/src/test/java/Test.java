@@ -3,6 +3,9 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -60,9 +63,35 @@ public class Test {
         Student[] students = new Student[]{aa, bb, cc, dd};
         Arrays.stream(students)
                 .map(su -> Optional
-                                .ofNullable(su)
-                                .map(Student::getName)
-                                .orElse("unknown"))
+                        .ofNullable(su)
+                        .map(Student::getName)
+                        .orElse("unknown"))
                 .forEach(System.out::println);
+    }
+
+    @org.junit.Test
+    public void testA() {
+        String[] strings = new String[]{};
+        System.out.println(strings.length);
+        for (String string : strings) {
+            System.out.println(string);
+        }
+    }
+
+    @org.junit.Test
+    public void testB() {
+        String a = "1,2,3,4,5";
+        ArrayList<String> list = new ArrayList<String>();
+        Arrays.stream(a.split(",")).forEach(i -> list.add(i));
+        list.forEach(System.out::println);
+    }
+
+    @org.junit.Test
+    public void testC() throws ClassNotFoundException, SQLException {
+        Class.forName("com.sap.db.jdbc.Driver");
+        DriverManager.getConnection(
+                "jdbc:sap://10.24.69.9:39017",
+                "SYSTEM",
+                "Hana135246");
     }
 }
