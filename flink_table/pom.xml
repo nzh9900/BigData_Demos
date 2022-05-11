@@ -125,12 +125,12 @@
 <!--            &lt;!&ndash;            <scope>provided</scope>&ndash;&gt;-->
 <!--        </dependency>-->
 
-<!--        <dependency>-->
-<!--            <groupId>org.apache.hadoop</groupId>-->
-<!--            <artifactId>hadoop-mapreduce-client-core</artifactId>-->
-<!--            <version>${hadoop.version}</version>-->
+        <dependency>
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-mapreduce-client-core</artifactId>
+            <version>${hadoop.version}</version>
 <!--            <scope>provided</scope>-->
-<!--        </dependency>-->
+        </dependency>
 <!--        <dependency>-->
 <!--            <groupId>org.apache.hadoop</groupId>-->
 <!--            <artifactId>hadoop-common</artifactId>-->
