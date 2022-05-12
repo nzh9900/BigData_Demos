@@ -37,7 +37,7 @@ public class TestHiveCatalog {
         System.out.println("===========================start===========================");
         //tEnv.executeSql("drop table source");
         tEnv.executeSql("create  table if not exists source  (id int,name string) with ('connector' = 'datagen')");
-        tEnv.executeSql("insert into sink_test select * from source");
+        tEnv.executeSql("insert into sink_test2 select * from source");
 
         //tEnv.executeSql("insert into hiveCatalog.datalake.iceberg_001 select * from source");
 
