@@ -16,6 +16,7 @@ public class TestHiveCatalog {
 
     private static StreamTableEnvironment init() {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+        env.enableCheckpointing(6 * 1000L);
         return StreamTableEnvironment.create(env, EnvironmentSettings.newInstance().inStreamingMode().useBlinkPlanner().build());
     }
 
