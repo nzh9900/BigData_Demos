@@ -39,7 +39,7 @@ public class TestHiveCatalog {
 
     private static void insertIntoIcebergTable(StreamTableEnvironment tEnv) {
         tEnv.executeSql("create  table if not exists source (id int,name string) with ('connector' = 'datagen')");
-        tEnv.executeSql("insert into sink_test2 select * from source");
+        tEnv.executeSql("insert into iceberg_001 select * from source");
 
     }
 
