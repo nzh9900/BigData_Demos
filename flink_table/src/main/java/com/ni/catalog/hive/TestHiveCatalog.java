@@ -21,7 +21,7 @@ public class TestHiveCatalog {
                     insertIntoIcebergTable(tEnv);
                     break;
                 case "createIcebergTable":
-                    insertIntoIcebergTable(tEnv);
+                    insertIntoNewIcebergTable(tEnv);
                     break;
                 case "icebergRead":
                     break;
@@ -38,6 +38,19 @@ public class TestHiveCatalog {
     }
 
     private static void insertIntoIcebergTable(StreamTableEnvironment tEnv) {
+        tEnv.executeSql("create  table if not exists source (id int,name string) with ('connector' = 'datagen')");
+
+        tEnv.sqlQuery("create table if not exists ice_01 (id int,name string) " +
+                "with ('connector'='iceberg'," +
+                "'catalog-name'='hiveCatalog'," +
+                "'catalog-database'='datalake'," +
+                "'catalog-table'='iceberg_001'");
+
+        tEnv.executeSql("insert into ice_01 select * from source");
+
+    }
+
+    private static void insertIntoNewIcebergTable(StreamTableEnvironment tEnv) {
         tEnv.executeSql("create  table if not exists source (id int,name string) with ('connector' = 'datagen')");
         tEnv.executeSql("insert into iceberg_001 select * from source");
 
