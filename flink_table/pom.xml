@@ -105,12 +105,6 @@
             </exclusions>
         </dependency>
 
-        <dependency>
-            <groupId>org.datanucleus</groupId>
-            <artifactId>datanucleus-core</artifactId>
-            <version>3.2.10</version>
-        </dependency>
-
         <!--        hadoop dependencies-->
         <dependency>
             <groupId>org.apache.hadoop</groupId>
