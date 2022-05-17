@@ -102,10 +102,6 @@
                     <groupId>org.apache.calcite.avatica</groupId>
                     <artifactId>avatica</artifactId>
                 </exclusion>
-                <exclusion>
-                    <groupId>org.datanucleus</groupId>
-                    <artifactId>datanucleus-core</artifactId>
-                </exclusion>
             </exclusions>
         </dependency>
 
@@ -192,6 +188,10 @@
                         <relocation>
                             <pattern>org.apache.commons.cli</pattern>
                             <shadedPattern>org.shade.commons.cli</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>org.datanucleus</pattern>
+                            <shadedPattern>org.shade.datanucleus</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>
