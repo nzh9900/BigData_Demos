@@ -44,7 +44,7 @@ public class TestHiveCatalog {
                 "with ('connector'='iceberg'," +
                 "'catalog-name'='hiveCatalog'," +
                 "'catalog-database'='datalake'," +
-                "'catalog-table'='iceberg_001'");
+                "'catalog-table'='iceberg_001')");
 
         tEnv.executeSql("insert into ice_01 select * from source");
 
