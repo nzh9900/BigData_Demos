@@ -40,7 +40,7 @@ public class TestHiveCatalog {
     private static void insertIntoIcebergTable(StreamTableEnvironment tEnv) {
         tEnv.executeSql("create  table if not exists source (id int,name string) with ('connector' = 'datagen')");
 
-        tEnv.sqlQuery("create table if not exists ice_01 (id int,name string) " +
+        tEnv.executeSql("create table if not exists ice_01 (id int,name string) " +
                 "with ('connector'='iceberg'," +
                 "'catalog-name'='hiveCatalog'," +
                 "'catalog-database'='datalake'," +
