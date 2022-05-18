@@ -181,10 +181,6 @@
                             <pattern>org.apache.commons.cli</pattern>
                             <shadedPattern>org.shaded.commons.cli</shadedPattern>
                         </relocation>
-                        <relocation>
-                            <pattern>org.apache.parquet</pattern>
-                            <shadedPattern>org.shaded.parquet</shadedPattern>
-                        </relocation>
                     </relocations>
                 </configuration>
                 <executions>
