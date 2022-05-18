@@ -181,10 +181,10 @@
                             <pattern>org.apache.commons.cli</pattern>
                             <shadedPattern>org.shaded.commons.cli</shadedPattern>
                         </relocation>
-                        <relocation>
-                            <pattern>org.apache.parquet.schema</pattern>
-                            <shadedPattern>org.apache.iceberg.shaded.org.apache.parquet.schema</shadedPattern>
-                        </relocation>
+<!--                        <relocation>-->
+<!--                            <pattern>org.apache.parquet.schema</pattern>-->
+<!--                            <shadedPattern>org.apache.iceberg.shaded.org.apache.parquet.schema</shadedPattern>-->
+<!--                        </relocation>-->
                     </relocations>
                 </configuration>
                 <executions>
