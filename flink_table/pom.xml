@@ -153,19 +153,19 @@
             <groupId>org.apache.iceberg</groupId>
             <artifactId>iceberg-flink-1.12</artifactId>
             <version>0.13.1</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.apache.iceberg</groupId>
-                    <artifactId>iceberg-parquet</artifactId>
-                </exclusion>
-            </exclusions>
+<!--            <exclusions>-->
+<!--                <exclusion>-->
+<!--                    <groupId>org.apache.iceberg</groupId>-->
+<!--                    <artifactId>iceberg-parquet</artifactId>-->
+<!--                </exclusion>-->
+<!--            </exclusions>-->
         </dependency>
 
-        <dependency>
-            <groupId>org.apache.iceberg</groupId>
-            <artifactId>iceberg-hive-runtime</artifactId>
-            <version>0.13.1</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.apache.iceberg</groupId>-->
+<!--            <artifactId>iceberg-hive-runtime</artifactId>-->
+<!--            <version>0.13.1</version>-->
+<!--        </dependency>-->
 
     </dependencies>
 
