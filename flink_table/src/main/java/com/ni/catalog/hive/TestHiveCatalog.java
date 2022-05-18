@@ -12,7 +12,6 @@ public class TestHiveCatalog {
     public static void main(String[] args) throws Exception {
         StreamTableEnvironment tEnv = init();
         setHiveCatalog(tEnv);
-        setIcebergCatalog(tEnv);
         for (String arg : args) {
             switch (arg) {
                 case "hive":
@@ -30,34 +29,12 @@ public class TestHiveCatalog {
         }
     }
 
-    private static void setIcebergCatalog(StreamTableEnvironment tEnv) {
-        tEnv.executeSql("CREATE CATALOG iceberg_catalog WITH (\n" +
-                "  'type'='iceberg',\n" +
-                "  'catalog-type'='hive',\n" +
-                "  'uri'='thrift://10.24.69.87:9083',\n" +
-                "  'clients'='5',\n" +
-                "  'property-version'='1',\n" +
-                "  'hive-conf-dir'='/etc/hive/conf'\n" +
-                ")");
-        tEnv.useCatalog("iceberg_catalog");
-        System.out.println("==========================using iceberg_catalog============================");
-        tEnv.executeSql("show databases").print();
-        System.out.println("==========================showing iceberg_catalog's databases============================");
-        tEnv.useDatabase("datalake");
-        System.out.println(tEnv.getCurrentDatabase());
-        System.out.println("==========================showing current database============================");
-        tEnv.executeSql("create table if not exists ice_01 (id int,name string) ");
-        System.out.println("==========================create table ice_01============================");
-        tEnv.executeSql("insert into `ice_01` select * from `source`");
-    }
-
     private static void createIcebergTable(StreamTableEnvironment tEnv) throws Exception {
         tEnv.sqlQuery("create table if not exists ice_01 (id int,name string) " +
                 "with ('connector'='iceberg'," +
                 "'catalog-name'='hive_prod'," +
                 "'catalog-database'='datalake'," +
                 "'catalog-table'='iceberg_001')");
-
     }
 
     private static void insertIntoIcebergTable(StreamTableEnvironment tEnv) {
@@ -91,9 +68,7 @@ public class TestHiveCatalog {
                         "/etc/hive/conf", "3.1.2");
         tEnv.registerCatalog("hiveCatalog", hiveCatalog);
         tEnv.useCatalog("hiveCatalog");
-        System.out.println("==========================using hive_catalog============================");
-        tEnv.executeSql("show databases").print();
-        System.out.println("==========================showing hive_catalog's databases============================");
+        System.out.println("==========================using hive catalog============================");
     }
 
     private static void getSomeHiveInformation(StreamTableEnvironment tEnv) {
