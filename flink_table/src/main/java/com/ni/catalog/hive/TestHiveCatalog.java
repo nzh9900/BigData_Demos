@@ -48,7 +48,9 @@ public class TestHiveCatalog {
         System.out.println("==========================showing current database============================");
         tEnv.executeSql("create table if not exists ice_01 (id int,name string) ");
         System.out.println("==========================create table ice_01============================");
-        tEnv.executeSql("insert into `ice_01` select * from `source`");
+        System.out.println(Arrays.toString(tEnv.listTables()));
+        System.out.println("==========================show tables============================");
+        tEnv.executeSql("insert into `ice_01` select * from `datalake.source`");
     }
 
     private static void createIcebergTable(StreamTableEnvironment tEnv) throws Exception {

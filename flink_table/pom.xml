@@ -105,12 +105,6 @@
             </exclusions>
         </dependency>
 
-        <dependency>
-            <groupId>org.datanucleus</groupId>
-            <artifactId>datanucleus-core</artifactId>
-            <version>3.2.10</version>
-        </dependency>
-
         <!--        hadoop dependencies-->
         <dependency>
             <groupId>org.apache.hadoop</groupId>
@@ -163,18 +157,6 @@
             <version>0.13.1</version>
         </dependency>
 
-        <!--        <dependency>-->
-        <!--            <groupId>org.antlr</groupId>-->
-        <!--            <artifactId>antlr-runtime</artifactId>-->
-        <!--            <version>3.4</version>-->
-        <!--        </dependency>-->
-
-        <dependency>
-            <groupId>org.datanucleus</groupId>
-            <artifactId>datanucleus-api-jdo</artifactId>
-            <version>3.2.6</version>
-        </dependency>
-
     </dependencies>
 
     <build>
@@ -188,10 +170,6 @@
                         <relocation>
                             <pattern>org.apache.commons.cli</pattern>
                             <shadedPattern>org.shade.commons.cli</shadedPattern>
-                        </relocation>
-                        <relocation>
-                            <pattern>org.datanucleus</pattern>
-                            <shadedPattern>org.shade.datanucleus</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>
