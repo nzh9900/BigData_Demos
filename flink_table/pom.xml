@@ -22,21 +22,21 @@
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-table-common</artifactId>
             <version>${flink.version}</version>
-            <!--            <scope>provided</scope>-->
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-table-api-java-bridge_2.11</artifactId>
             <version>${flink.version}</version>
-            <!--            <scope>provided</scope>-->
+            <scope>provided</scope>
         </dependency>
 
         <!--        <dependency>-->
         <!--            <groupId>org.apache.flink</groupId>-->
         <!--            <artifactId>flink-clients_2.11</artifactId>-->
         <!--            <version>${flink.version}</version>-->
-        <!--            <scope>provided</scope>-->
+        <!--        <scope>provided</scope>-->
         <!--&lt;!&ndash;            <exclusions>&ndash;&gt;-->
         <!--&lt;!&ndash;                <exclusion>&ndash;&gt;-->
         <!--&lt;!&ndash;                    <artifactId>commons-cli</artifactId>&ndash;&gt;-->
@@ -49,28 +49,28 @@
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-table-planner_2.11</artifactId>
             <version>1.12.7</version>
-            <!--            <scope>provided</scope>-->
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-table-planner-blink_2.11</artifactId>
             <version>1.12.7</version>
-            <!--            <scope>provided</scope>-->
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-connector-kafka_2.11</artifactId>
             <version>${flink.version}</version>
-            <!--            <scope>provided</scope>-->
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-json</artifactId>
             <version>${flink.version}</version>
-            <!--            <scope>provided</scope>-->
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
@@ -128,25 +128,25 @@
         <!--            <groupId>org.apache.hadoop</groupId>-->
         <!--            <artifactId>hadoop-mapreduce-client-core</artifactId>-->
         <!--            <version>${hadoop.version}</version>-->
-        <!--            <scope>provided</scope>-->
+        <!--        <scope>provided</scope>-->
         <!--        </dependency>-->
         <!--        <dependency>-->
         <!--            <groupId>org.apache.hadoop</groupId>-->
         <!--            <artifactId>hadoop-common</artifactId>-->
         <!--            <version>${hadoop.version}</version>-->
-        <!--            <scope>provided</scope>-->
+        <!--        <scope>provided</scope>-->
         <!--        </dependency>-->
         <!--        <dependency>-->
         <!--            <groupId>org.apache.hadoop</groupId>-->
         <!--            <artifactId>hadoop-mapreduce-client-common</artifactId>-->
         <!--            <version>${hadoop.version}</version>-->
-        <!--            <scope>provided</scope>-->
+        <!--        <scope>provided</scope>-->
         <!--        </dependency>-->
         <!--        <dependency>-->
         <!--            <groupId>org.apache.hadoop</groupId>-->
         <!--            <artifactId>hadoop-mapreduce-client-jobclient</artifactId>-->
         <!--            <version>${hadoop.version}</version>-->
-        <!--            <scope>provided</scope>-->
+        <!--        <scope>provided</scope>-->
         <!--        </dependency>-->
 
 
