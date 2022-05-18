@@ -153,6 +153,12 @@
             <groupId>org.apache.iceberg</groupId>
             <artifactId>iceberg-flink-1.12</artifactId>
             <version>0.13.1</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.apache.iceberg</groupId>
+                    <artifactId>iceberg-parquet</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
