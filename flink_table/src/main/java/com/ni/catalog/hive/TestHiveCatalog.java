@@ -50,7 +50,7 @@ public class TestHiveCatalog {
         System.out.println("==========================create table ice_01============================");
         System.out.println(Arrays.toString(tEnv.listTables()));
         System.out.println("==========================show tables============================");
-        tEnv.executeSql("insert into `ice_01` select * from hiveCatalog.datalake.source");
+        tEnv.executeSql("insert into `iceberg_001` select * from hiveCatalog.datalake.source");
     }
 
     private static void createIcebergTable(StreamTableEnvironment tEnv) throws Exception {
