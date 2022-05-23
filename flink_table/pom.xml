@@ -16,6 +16,7 @@
         <maven.compiler.target>8</maven.compiler.target>
         <flink.version>1.12.7</flink.version>
         <hadoop.version>3.1.1</hadoop.version>
+        <scope>compile</scope>
     </properties>
 
     <repositories>
@@ -40,14 +41,14 @@
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-table-common</artifactId>
             <version>${flink.version}</version>
-            <scope>provided</scope>
+            <scope>${scope}</scope>
         </dependency>
 
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-table-api-java-bridge_2.11</artifactId>
             <version>${flink.version}</version>
-            <scope>provided</scope>
+            <scope>${scope}</scope>
         </dependency>
 
         <!--        <dependency>-->
@@ -67,14 +68,14 @@
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-table-planner_2.11</artifactId>
             <version>1.12.7</version>
-            <scope>provided</scope>
+            <scope>${scope}</scope>
         </dependency>
 
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-table-planner-blink_2.11</artifactId>
             <version>1.12.7</version>
-            <scope>provided</scope>
+            <scope>${scope}</scope>
         </dependency>
 
         <dependency>
@@ -88,7 +89,7 @@
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-json</artifactId>
             <version>${flink.version}</version>
-            <scope>provided</scope>
+            <scope>${scope}</scope>
         </dependency>
 
         <dependency>
@@ -135,6 +136,10 @@
                 <exclusion>
                     <groupId>org.apache.parquet</groupId>
                     <artifactId>parquet-hadoop-bundle</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-log4j12</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -198,6 +203,14 @@
         <!--            <artifactId>iceberg-hive-runtime</artifactId>-->
         <!--            <version>0.13.1</version>-->
         <!--        </dependency>-->
+
+        <dependency>
+            <groupId>org.apache.hudi</groupId>
+            <artifactId>hudi-flink-bundle_2.11</artifactId>
+            <version>0.9.0</version>
+        </dependency>
+
+
 
     </dependencies>
 
