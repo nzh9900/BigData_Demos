@@ -16,7 +16,7 @@
         <maven.compiler.target>8</maven.compiler.target>
         <flink.version>1.12.7</flink.version>
         <hadoop.version>3.1.1</hadoop.version>
-        <scope>compile</scope>
+        <scope>provided</scope>
     </properties>
 
     <repositories>
@@ -82,7 +82,6 @@
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-connector-kafka_2.11</artifactId>
             <version>${flink.version}</version>
-            <scope>provided</scope>
         </dependency>
 
         <dependency>
@@ -98,23 +97,23 @@
             <version>1.2.76</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.apache.flink</groupId>
-            <artifactId>flink-connector-hive_2.11</artifactId>
-            <version>${flink.version}</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.apache.flink</groupId>-->
+<!--            <artifactId>flink-connector-hive_2.11</artifactId>-->
+<!--            <version>${flink.version}</version>-->
+<!--        </dependency>-->
 
-        <dependency>
-            <groupId>org.apache.parquet</groupId>
-            <artifactId>parquet-column</artifactId>
-            <version>1.12.2</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.apache.parquet</groupId>-->
+<!--            <artifactId>parquet-column</artifactId>-->
+<!--            <version>1.12.2</version>-->
+<!--        </dependency>-->
 
-        <dependency>
-            <groupId>org.apache.parquet</groupId>
-            <artifactId>parquet-hadoop</artifactId>
-            <version>1.12.2</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.apache.parquet</groupId>-->
+<!--            <artifactId>parquet-hadoop</artifactId>-->
+<!--            <version>1.12.2</version>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>org.apache.hive</groupId>
@@ -184,31 +183,43 @@
         <!--        <scope>provided</scope>-->
         <!--        </dependency>-->
 
+        <dependency>
+            <groupId>org.apache.hudi</groupId>
+            <artifactId>hudi-flink-bundle_2.11</artifactId>
+            <version>0.9.0</version>
+            <scope>provided</scope>
+        </dependency>
+
+<!--        <dependency>-->
+<!--            <groupId>org.apache.flink</groupId>-->
+<!--            <artifactId>flink-shaded-hadoop-3</artifactId>-->
+<!--            <version>3.1.1.7.2.9.0-173-9.0</version>-->
+<!--            <exclusions>-->
+<!--                <exclusion>-->
+<!--                    <groupId>xml-apis</groupId>-->
+<!--                    <artifactId>xml-apis</artifactId>-->
+<!--                </exclusion>-->
+<!--            </exclusions>-->
+<!--        </dependency>-->
 
         <!--        iceberg dependencies-->
-        <dependency>
-            <groupId>org.apache.iceberg</groupId>
-            <artifactId>iceberg-flink-1.12</artifactId>
-            <version>0.13.1</version>
-            <!--            <exclusions>-->
-            <!--                <exclusion>-->
-            <!--                    <groupId>org.apache.iceberg</groupId>-->
-            <!--                    <artifactId>iceberg-parquet</artifactId>-->
-            <!--                </exclusion>-->
-            <!--            </exclusions>-->
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.apache.iceberg</groupId>-->
+<!--            <artifactId>iceberg-flink-1.12</artifactId>-->
+<!--            <version>0.13.1</version>-->
+<!--            &lt;!&ndash;            <exclusions>&ndash;&gt;-->
+<!--            &lt;!&ndash;                <exclusion>&ndash;&gt;-->
+<!--            &lt;!&ndash;                    <groupId>org.apache.iceberg</groupId>&ndash;&gt;-->
+<!--            &lt;!&ndash;                    <artifactId>iceberg-parquet</artifactId>&ndash;&gt;-->
+<!--            &lt;!&ndash;                </exclusion>&ndash;&gt;-->
+<!--            &lt;!&ndash;            </exclusions>&ndash;&gt;-->
+<!--        </dependency>-->
 
         <!--        <dependency>-->
         <!--            <groupId>org.apache.iceberg</groupId>-->
         <!--            <artifactId>iceberg-hive-runtime</artifactId>-->
         <!--            <version>0.13.1</version>-->
         <!--        </dependency>-->
-
-        <dependency>
-            <groupId>org.apache.hudi</groupId>
-            <artifactId>hudi-flink-bundle_2.11</artifactId>
-            <version>0.9.0</version>
-        </dependency>
 
 
 

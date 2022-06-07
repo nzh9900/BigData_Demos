@@ -8,6 +8,10 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 
 public class CmdUtil {
+    public static void main(String[] args) {
+        Pair<Integer, String> objects = CmdUtil.getInstance().executeProcess("su", "-", "octopus", "-c", "/opt/idp/rt/bin/flink_first_start.sh /tmp/rt_job/195/mongodbceshi_1654064245518.config 1G 2G 1 /opt/cloudera/parcels/FLINK-1.12.4-BIN-SCALA_2.11 /tmp/rt_job/logs/mongodbceshi_1654064245518.log /tmp/rt_job/195");
+        System.out.println(objects.getValue1());
+    }
 
     public static final Logger logger = LoggerFactory.getLogger(CmdUtil.class);
 

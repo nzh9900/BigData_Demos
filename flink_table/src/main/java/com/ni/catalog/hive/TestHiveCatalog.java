@@ -11,7 +11,7 @@ public class TestHiveCatalog {
 
     public static void main(String[] args) throws Exception {
         StreamTableEnvironment tEnv = init();
-        //setHiveCatalog(tEnv);
+        setHiveCatalog(tEnv);
         for (String arg : args) {
             switch (arg) {
                 case "hive":
@@ -34,7 +34,7 @@ public class TestHiveCatalog {
     }
 
     private static void createHudiTable(StreamTableEnvironment tEnv) {
-        String sink_table = "CREATE TABLE hudi_users (\n" +
+        String sink_table = "CREATE TABLE if not exists hudi_users_test (\n" +
                 "  id BIGINT,\n" +
                 "  name VARCHAR(20),\n" +
                 "  ts TIMESTAMP(3),\n" +
@@ -60,7 +60,7 @@ public class TestHiveCatalog {
                 "  'hive_sync.enable'='true', -- required，开启hive同步功能\n" +
                 "  'hive_sync.mode' = 'hms', -- required, 将hive sync mode设置为hms, 默认jdbc\n" +
                 "  'hive_sync.metastore.uris' = 'thrift://10.24.69.87:9083', -- metastore的端口\n" +
-                "  'hive_sync.table' = 'hudi_test', -- hive新建表名\n" +
+                "  'hive_sync.table' = 'hudi_users_test', -- hive新建表名\n" +
                 "  'hive_sync.db' = 'datalake', -- hive新建数据库名\n" +
                 "  'hive_sync.support_timestamp' = 'true' -- 兼容hive timestamp类型\n" +
                 ")";
@@ -68,19 +68,17 @@ public class TestHiveCatalog {
 
 
 
-        tEnv.executeSql("create  table if not exists source (\n" +
-                "  id BIGINT,\n" +
-                "  name VARCHAR(20),\n" +
-                "  ts TIMESTAMP(3),\n" +
-                "  `partition` VARCHAR(20),\n" +
-                "  primary key(id) not enforced --必须指定uuid 主键 \n" +
+        tEnv.executeSql("create  table if not exists default_catalog.default_database.source (\n" +
+                "  name string,\n" +
+                "  age int\n" +
                 ") with ('connector' = 'datagen',\n" +
                 "      'rows-per-second' = '2' )");
 
 
 
         tEnv.executeSql(sink_table);
-        tEnv.executeSql("insert into hudi_users select * from source");
+        tEnv.executeSql("insert into hive_sink_test select * from default_catalog.default_database.source");
+        //tEnv.executeSql("select * from hudi_users_test").print();
         //tEnv.executeSql("CREATE TABLE datalake.hudi_test(\n" +
         //        "  uuid VARCHAR(20),\n" +
         //        "  name VARCHAR(10),\n" +
