@@ -9,7 +9,8 @@ import java.nio.charset.StandardCharsets;
 
 public class CmdUtil {
     public static void main(String[] args) {
-        Pair<Integer, String> objects = CmdUtil.getInstance().executeProcess("su", "-", "octopus", "-c", "/opt/idp/rt/bin/flink_first_start.sh /tmp/rt_job/195/mongodbceshi_1654064245518.config 1G 2G 1 /opt/cloudera/parcels/FLINK-1.12.4-BIN-SCALA_2.11 /tmp/rt_job/logs/mongodbceshi_1654064245518.log /tmp/rt_job/195");
+        Pair<Integer, String> objects =
+                CmdUtil.getInstance().executeProcess("su", "-", "octopus", "-c","/opt/idp/rt/bin/flink_first_start.sh yarn-per-job /tmp/rt_job/195/mongodbceshi_1654658441447.config /opt/cloudera/parcels/FLINK-1.12.4-BIN-SCALA_2.11 /tmp/rt_job/logs/mongodbceshi_1654658441447.log /tmp/rt_job/195 1G 2G 1");
         System.out.println(objects.getValue1());
     }
 
