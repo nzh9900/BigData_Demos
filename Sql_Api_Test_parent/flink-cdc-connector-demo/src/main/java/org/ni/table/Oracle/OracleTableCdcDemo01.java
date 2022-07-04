@@ -30,8 +30,8 @@ public class OracleTableCdcDemo01 {
                 "     'table-name' = 'PRODUCT'," +
                 //"     'scan.start.mode' = 'latest-offset'," +
                 "     'debezium.log.mining.strategy'='online_catalog',\n" +
-                "     'debezium.log.mining.continuous.mine'='true'," +
-                "     'debezium.database.tablename.case.insensitive'='false'" +
+                "     'debezium.log.mining.continuous.mine'='true'" +
+                //"     'debezium.database.tablename.case.insensitive'='false'" +
                 ")");
 
         tEnv.executeSql("select * from products").print();

@@ -14,7 +14,7 @@
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
-        <flink.version>1.12.4</flink.version>
+        <flink.version>1.13.6</flink.version>
         <scala.binary.version>2.11</scala.binary.version>
     </properties>
 
@@ -22,8 +22,8 @@
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-clients_${scala.binary.version}</artifactId>
-            <scope>provided</scope>
             <version>${flink.version}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.flink</groupId>
@@ -65,12 +65,20 @@
             <groupId>io.github.interestinglab.waterdrop</groupId>
             <artifactId>waterdrop-api-flink</artifactId>
             <version>2.0.4</version>
+            <scope>provided</scope>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>io.github.interestinglab.waterdrop</groupId>-->
-<!--            <artifactId>plugin-flink-sink-kafka</artifactId>-->
-<!--            <version>2.0.4</version>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>io.github.interestinglab.waterdrop</groupId>-->
+        <!--            <artifactId>plugin-flink-sink-kafka</artifactId>-->
+        <!--            <version>2.0.4</version>-->
+        <!--        </dependency>-->
+
+        <dependency>
+            <groupId>org.apache.iceberg</groupId>
+            <artifactId>iceberg-flink-runtime-1.13</artifactId>
+            <version>0.13.2</version>
+            <scope>provided</scope>
+        </dependency>
 
     </dependencies>
 
