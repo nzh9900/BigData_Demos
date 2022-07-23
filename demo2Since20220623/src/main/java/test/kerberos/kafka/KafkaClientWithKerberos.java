@@ -1,4 +1,4 @@
-package test.kafka.kerberos;
+package test.kerberos.kafka;
 
 import org.apache.kafka.clients.admin.AdminClient;
 import org.apache.kafka.clients.admin.KafkaAdminClient;
