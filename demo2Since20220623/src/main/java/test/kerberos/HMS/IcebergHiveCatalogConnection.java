@@ -31,16 +31,16 @@ public class IcebergHiveCatalogConnection {
     public static HiveCatalog init(String mode, String uri) {
         Configuration conf = new Configuration();
         if ("local".equals(mode)) {
-            //conf.addResource("hadoop_conf/core-site.xml");
-            //conf.addResource("hadoop_conf/hdfs-site.xml");
-            //conf.addResource("hadoop_conf/yarn-site.xml");
+            conf.addResource("hadoop_conf-cdh6/core-site.xml");
+            conf.addResource("hadoop_conf-cdh6/hdfs-site.xml");
+            conf.addResource("hadoop_conf-cdh6/yarn-site.xml");
         } else {
             //conf = HadoopUtils.getInstance().getConfiguration();
         }
 
 
         HiveCatalog hiveCatalog = new HiveCatalog();
-        hiveCatalog.setConf(conf);
+        //hiveCatalog.setConf(conf);
         HashMap<String, String> properties = new HashMap<String, String>();
         properties.put("uri", uri);
         hiveCatalog.initialize("hive", properties);
@@ -99,13 +99,12 @@ public class IcebergHiveCatalogConnection {
 
 
     private static void kerberosConnection() {
-        System.setProperty("java.security.krb5.conf", "/home/ni/IdeaProjects/java_flink/demo2Since20220623/src/main/resources/krb5.conf");
+        System.setProperty("java.security.krb5.conf", "/Users/ni/IdeaProjects/java_flnk/demo2Since20220623/src/main/resources/krb5.conf");
         System.setProperty("sun.security.krb5.debug", "true");
-        System.setProperty("HADOOP_JAAS_DEBUG", "true");
+        System.setProperty("HADOOP_JAAS_DEBUG", "false");
 
 
         HiveConf conf = new HiveConf();
-        conf.set("hive.metastore.uris", "thrift://10.24.65.120:9083");
         conf.set("hadoop.security.authentication", "kerberos");
         //todo 默认为true
         conf.set("hive.metastore.execute.setugi", "true");
@@ -115,9 +114,8 @@ public class IcebergHiveCatalogConnection {
         conf.set("hive.server2.authentication.kerberos.principal", "hive/dev-new-cdh2.lab.com@RUISDATA.COM");
         UserGroupInformation.setConfiguration(conf);
         try {
-            UserGroupInformation.loginUserFromKeytab("octopus@RUISDATA.COM", "/home/ni/IdeaProjects/java_flink/demo2Since20220623/src/main/resources/octopus.keytab");
+            UserGroupInformation.loginUserFromKeytab("octopus@RUISDATA.COM", "/Users/ni/IdeaProjects/java_flnk/demo2Since20220623/src/main/resources/octopus.keytab");
         } catch (IOException e1) {
-            // TODO Auto-generated catch block
             e1.printStackTrace();
         }
 
