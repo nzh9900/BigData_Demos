@@ -16,6 +16,7 @@ import java.util.HashMap;
 public class IcebergHiveCatalogConnection {
     public static void main(String[] args) {
         String krb5Path = "/Users/ni/IdeaProjects/java_flnk/demo2Since20220623/src/main/resources/krb5.conf";
+        // HMS服务principal
         String servicePrincipal = "hive/dev-new-cdh2.lab.com@RUISDATA.COM";
         String principal = "octopus@RUISDATA.COM";
         String keytabPath = "/Users/ni/IdeaProjects/java_flnk/demo2Since20220623/src/main/resources/octopus.keytab";
@@ -44,7 +45,6 @@ public class IcebergHiveCatalogConnection {
         conf.set("hive.security.authorization.enabled", "false");
         conf.set("hive.metastore.sasl.enabled", "true");
         conf.set("hive.metastore.kerberos.principal", servicePrincipal);
-        conf.set("hive.server2.authentication.kerberos.principal", servicePrincipal);
         UserGroupInformation.setConfiguration(conf);
         try {
             UserGroupInformation.loginUserFromKeytab(principal, keytabPath);
