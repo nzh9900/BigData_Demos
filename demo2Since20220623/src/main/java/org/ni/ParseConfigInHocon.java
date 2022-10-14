@@ -27,15 +27,20 @@ public class ParseConfigInHocon {
         System.out.println("\n\n================================\n\n");
 
         ArrayList<DataGenColumn> dataGenColumns = new ArrayList<>();
-        List<? extends Config> objectList = config.getConfigList("source.DataGenerator.resultTableColumns");
+        //List<? extends Config> objectList = config.getConfigList("source.DataGenerator.resultTableColumns");
 
-        for (Config object : objectList) {
-            DataGenColumn dataGenColumn = new DataGenColumn(object);
-            dataGenColumns.add(dataGenColumn);
-        }
+        //for (Config object : objectList) {
+        //    DataGenColumn dataGenColumn = new DataGenColumn(object);
+        //    dataGenColumns.add(dataGenColumn);
+        //}
 
         System.out.println("\n\n================================\n\n");
 
         System.out.println(dataGenColumns);
+
+        System.out.println("\n\n================================\n\n");
+        System.out.println(config.getString("sqlQueries"));
+
+
     }
 }
