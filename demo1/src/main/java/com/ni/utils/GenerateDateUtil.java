@@ -8,11 +8,11 @@ import java.util.GregorianCalendar;
 
 public class GenerateDateUtil {
     public static void main(String[] args) throws IOException {
-        printDate(100, new Date());
+        printDate(365, new Date());
     }
 
     private static void printDate(long numberOfDays, Date startDate) throws IOException {
-        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(new File("/home/ni/文档/everything.txt"),true));
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(new File("/Users/ni/Nutstore Files/work_document/everything.txt"),true));
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         GregorianCalendar gregorianCalendar = new GregorianCalendar();
