@@ -64,12 +64,12 @@
             <artifactId>log4j</artifactId>
             <version>1.2.17</version>
         </dependency>
-        <dependency>
-            <groupId>io.github.interestinglab.waterdrop</groupId>
-            <artifactId>waterdrop-api-flink</artifactId>
-            <version>2.0.4</version>
-            <scope>provided</scope>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>io.github.interestinglab.waterdrop</groupId>-->
+<!--            <artifactId>waterdrop-api-flink</artifactId>-->
+<!--            <version>2.0.4</version>-->
+<!--            <scope>provided</scope>-->
+<!--        </dependency>-->
         <!--        <dependency>-->
         <!--            <groupId>io.github.interestinglab.waterdrop</groupId>-->
         <!--            <artifactId>plugin-flink-sink-kafka</artifactId>-->

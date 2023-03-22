@@ -2,17 +2,17 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.junit.Test;
 
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.IntStream;
 
-public class Test {
+public class Test01 {
 
 
     @org.junit.Test
@@ -93,5 +93,16 @@ public class Test {
                 "jdbc:sap://10.24.69.9:39017",
                 "SYSTEM",
                 "Hana135246");
+    }
+
+    @org.junit.Test
+    public void testD() {
+        System.out.println(LocalDate.now());
+        System.out.println(new Timestamp(System.currentTimeMillis()));
+    }
+
+    @Test
+    public void testE() {
+        Hashtable<Object, Object> hashtable = new Hashtable<>();
     }
 }

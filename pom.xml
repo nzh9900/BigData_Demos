@@ -20,6 +20,8 @@
         <module>flink_learn</module>
         <module>demo2Since20220623</module>
         <module>Sql_Api_Test_parent</module>
+        <module>kerberos</module>
+        <module>flink-test</module>
     </modules>
 
     <properties>
