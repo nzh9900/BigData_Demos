@@ -1,11 +1,11 @@
-package com.ni;
+package com.ni.threadlocal;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @ClassName LocalThreadTest
- * @Description todo
+ * @Description
  * @Author zihao.ni
  * @Date 2023/3/24 09:14
  * @Version 1.0
