@@ -22,6 +22,8 @@
         <module>Sql_Api_Test_parent</module>
         <module>kerberos</module>
         <module>flink-test</module>
+        <module>yarn-api</module>
+        <module>thread</module>
     </modules>
 
     <properties>
