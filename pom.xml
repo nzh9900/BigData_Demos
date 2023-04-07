@@ -24,6 +24,7 @@
         <module>flink-test</module>
         <module>yarn-api</module>
         <module>thread</module>
+        <module>jackson</module>
     </modules>
 
     <properties>
