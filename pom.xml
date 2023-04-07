@@ -25,6 +25,7 @@
         <module>yarn-api</module>
         <module>thread</module>
         <module>jackson</module>
+        <module>spi</module>
     </modules>
 
     <properties>
