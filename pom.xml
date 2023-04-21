@@ -22,6 +22,7 @@
         <module>jackson</module>
         <module>spi</module>
         <module>flink-demo</module>
+        <module>realtime-project</module>
     </modules>
 
     <properties>
