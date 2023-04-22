@@ -23,6 +23,7 @@
         <module>spi</module>
         <module>flink-demo</module>
         <module>realtime-project</module>
+        <module>optional</module>
     </modules>
 
     <properties>
