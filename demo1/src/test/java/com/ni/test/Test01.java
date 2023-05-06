@@ -3,7 +3,9 @@ package com.ni.test;
 
 import org.junit.Test;
 
+import java.io.File;
 import java.io.UnsupportedEncodingException;
+import java.time.LocalDate;
 
 /**
  * @ClassName Test01
@@ -28,5 +30,30 @@ public class Test01 {
         runtimeException.printStackTrace();
         System.out.println("====================");
         System.out.println(runtimeException.getLocalizedMessage());
+    }
+
+    @Test
+    public void testFileCreation() {
+        LocalDate nowDate = LocalDate.now();
+        int day = nowDate.getDayOfMonth();
+        int month = nowDate.getMonthValue();
+        int year = nowDate.getYear();
+        File file = new File(String.format("/tmp/principal/%s-%s/%s-%s-%s", year, month, year, month, day));
+        System.out.println(file.exists());
+        file.delete();
+        System.out.println(file.exists());
+
+        if (!file.exists()) {
+            file.mkdirs();
+            file.setWritable(true, false);
+            file.setReadable(true, false);
+            file.setExecutable(true, false);
+            file.getParentFile().setWritable(true, false);
+            file.getParentFile().setReadable(true, false);
+            file.getParentFile().setExecutable(true, false);
+            file.getParentFile().getParentFile().setWritable(true, false);
+            file.getParentFile().getParentFile().setReadable(true, false);
+            file.getParentFile().getParentFile().setExecutable(true, false);
+        }
     }
 }
