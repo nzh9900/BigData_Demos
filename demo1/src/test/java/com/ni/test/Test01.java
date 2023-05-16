@@ -6,6 +6,7 @@ import org.junit.Test;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.time.LocalDate;
+import java.util.regex.Pattern;
 
 /**
  * @ClassName Test01
@@ -55,5 +56,12 @@ public class Test01 {
             file.getParentFile().getParentFile().setReadable(true, false);
             file.getParentFile().getParentFile().setExecutable(true, false);
         }
+    }
+
+
+    @Test
+    public void testRegex() {
+        System.out.println(Pattern.matches("[\\x00-\\x1f\\x7f]", ""));
+
     }
 }
