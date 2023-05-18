@@ -1,6 +1,7 @@
 package com.ni.test;
 
 
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
 import java.io.File;
@@ -63,5 +64,11 @@ public class Test01 {
     public void testRegex() {
         System.out.println(Pattern.matches("[\\x00-\\x1f\\x7f]", ""));
 
+    }
+
+    @Test
+    public void reverseString() {
+        String a = "fact_transaction_detail_label";
+        System.out.println(StringUtils.reverse(a));
     }
 }
