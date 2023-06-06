@@ -8,6 +8,7 @@ import org.apache.hadoop.hive.metastore.api.MetaException;
 import org.apache.hadoop.security.UserGroupInformation;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 /**
  * @ClassName HiveMetastoreUsage
@@ -35,10 +36,10 @@ public class HiveMetastoreUsage {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         hiveMetastoreUsage.getConnection();
 
         System.out.println(hiveMetastoreUsage.hiveMetaStoreClient.getAllDatabases());
+        hiveMetastoreUsage.hiveMetaStoreClient.getTableMeta("","", Arrays.asList(""));
 
     }
 
