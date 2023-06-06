@@ -25,6 +25,7 @@
         <module>realtime-project</module>
         <module>optional</module>
         <module>log-framework</module>
+        <module>hive_usage</module>
     </modules>
 
     <properties>
