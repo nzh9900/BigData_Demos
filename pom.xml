@@ -27,6 +27,7 @@
         <module>log-framework</module>
         <module>hive_usage</module>
         <module>s3-api</module>
+        <module>algorithm</module>
     </modules>
 
     <properties>
