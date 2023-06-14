@@ -11,6 +11,7 @@ import java.util.Random;
  * @Version 1.0
  **/
 public class AlgorithmArray {
+    // 「数组 Array」是一种线性数据结构，其将相同类型元素存储在连续的内存空间中。我们将元素在数组中的位置称为元素的「索引 Index」。
     private static final Random random = new Random();
 
     public static void main(String[] args) {
@@ -19,14 +20,20 @@ public class AlgorithmArray {
             System.out.println("随机返回一个数组元素:" + randomAccess(nums));
         }
 
-        System.out.println("扩展数组长度+2,原始长度:" + nums.length + ",扩展后长度:" + extend(nums, 2).length);
+        System.out.println("扩展数组长度+2,原始长度:" + nums.length + ",扩展后长度:" + extend(Arrays.copyOf(nums, 10), 2).length);
 
-        Arrays.stream(insert(nums, 1, 3)).forEach(element -> System.out.print(element + ","));
+        System.out.print("替换数组index为3的元素值为1: ");
+        Arrays.stream(insert(Arrays.copyOf(nums, 10), 1, 3)).forEach(element -> System.out.print(element + ","));
         System.out.println();
 
-        Arrays.stream(remove(nums, 1)).forEach(element -> System.out.print(element + ","));
+        System.out.print("删除数组index为1的元素: ");
+        Arrays.stream(remove(Arrays.copyOf(nums, 10), 1)).forEach(element -> System.out.print(element + ","));
+        System.out.println();
 
-        //https://www.hello-algo.com/chapter_array_and_linkedlist/array/#413
+        int target = 2;
+        System.out.println("查找数组元素: " + target + ",索引位置:" + find(nums, target));
+
+
     }
 
 
@@ -75,5 +82,17 @@ public class AlgorithmArray {
             nums[i] = nums[i + 1];
         }
         return nums;
+    }
+
+    /**
+     * 在数组中查找指定元素
+     */
+    static int find(int[] nums, int target) {
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] == target) {
+                return i;
+            }
+        }
+        return -1;
     }
 }
