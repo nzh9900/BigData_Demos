@@ -28,6 +28,7 @@
         <module>hive_usage</module>
         <module>s3-api</module>
         <module>algorithm</module>
+        <module>Utils</module>
     </modules>
 
     <properties>
