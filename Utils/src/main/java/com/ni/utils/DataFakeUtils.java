@@ -22,6 +22,7 @@ public class DataFakeUtils {
         List<String> periodList = Arrays.asList("短期", "中期", "长期");
         // 投资偏好
         List<String> investmentPreferences = Arrays.asList("货币", "混合", "权益", "固收");
+        List<Integer> riskLevel = Arrays.asList(0, 1, 2, 3, 4, 5, 6);
 
         File newCustomerFile = new File("Utils/src/main/resources/customer-new.txt");
         File newHbaseFile = new File("Utils/src/main/resources/customer_hbase-new.txt");
@@ -50,7 +51,7 @@ public class DataFakeUtils {
                 int expectedPaybackRate = RandomUtils.getInt(1, 7);
                 String appendDetails = "," + RandomUtils.randomAccessList(periodList) + "," +
                         RandomUtils.randomAccessList(investmentPreferences) + "," +
-                        expectedPaybackRate;
+                        expectedPaybackRate + "," + RandomUtils.randomAccessList(riskLevel);
 
                 customerLine += appendDetails;
                 hbaseLine += appendDetails;
