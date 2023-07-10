@@ -71,4 +71,10 @@ public class Test01 {
         String a = "fact_transaction_detail_label";
         System.out.println(StringUtils.reverse(a));
     }
+
+    @Test
+    public void printFileSeparator() {
+        System.out.println(File.separator);
+        System.out.println(File.pathSeparator);
+    }
 }
