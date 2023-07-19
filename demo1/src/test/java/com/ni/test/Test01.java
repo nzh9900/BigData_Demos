@@ -1,6 +1,10 @@
 package com.ni.test;
 
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
@@ -76,5 +80,20 @@ public class Test01 {
     public void printFileSeparator() {
         System.out.println(File.separator);
         System.out.println(File.pathSeparator);
+    }
+
+    @Test
+    public void getYarnState() {
+            try {
+                HttpClient httpClient = new HttpClient();
+                GetMethod getMethod = new GetMethod("http://10.24.32.23:8088/ws/v1/cluster/apps" + "/" + "application_1667201981464_146355");
+                httpClient.executeMethod(getMethod);
+                String response = getMethod.getResponseBodyAsString().trim();
+                JSONObject jsonObject = JSON.parseObject(response);
+                System.out.println(jsonObject);
+                getMethod.releaseConnection();
+            } catch (Exception e) {
+                System.out.println("error");
+            }
     }
 }
