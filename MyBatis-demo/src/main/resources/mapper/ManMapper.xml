@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ni.mybatisdemo.mapper.ManMapper">
+    <insert id="insert">
+        insert into man (name,age,telephone) values(#{name},#{age},#{telephone})
+    </insert>
+
+    <update id="update">
+        update man set name=#{name},age=#{age},telephone=#{telephone} where id=#{id}
+    </update>
+
+    <delete id="delete">
+        delete from man where id = #{id}
+    </delete>
+
+    <select id="getManById" resultType="com.ni.mybatisdemo.entity.Man">
+        select * from man where id = #{id}
+    </select>
+
+    <select id="selectAllAsMap" resultType="java.util.Map">
+        select * from man
+    </select>
+</mapper>
