@@ -2,8 +2,8 @@ package com.ni.mybatisdemo.mapper;
 
 import com.ni.mybatisdemo.entity.Man;
 import org.apache.ibatis.annotations.MapKey;
-import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -13,7 +13,6 @@ import java.util.Map;
  * @Date 2023/7/21 07:47
  * @Version 1.0
  **/
-@Mapper
 public interface ManMapper {
     Man getManById(int id);
 
@@ -25,8 +24,21 @@ public interface ManMapper {
 
     /**
      * name作为key,man对象作为value
+     *
      * @return
      */
     @MapKey("name")
     Map<String, Man> selectAllAsMap();
+
+    List<Man> searchListWithIfCondition(String nameSearchVal, String telephoneSearchVal);
+
+    List<Man> searchListWithWhereCondition(String nameSearchVal, String telephoneSearchVal);
+
+    List<Man> searchListWithChoose(String nameSearchVal, String telephoneSearchVal);
+
+    List<Man> searchListWithForeach(List<String> names);
+
+    void insertBatch(List<Man> men);
+
+    List<Man> selectAll();
 }

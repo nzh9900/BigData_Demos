@@ -8,6 +8,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -44,5 +46,44 @@ public class ManMapperTest {
     public void testSelectAllAsMap() {
         Map<String, Man> longManMap = manMapper.selectAllAsMap();
         System.out.println(longManMap.get("李斯"));
+    }
+
+    @Test
+    public void testSearchValWithIf() {
+        List<Man> result = manMapper.searchListWithIfCondition("王", "g");
+        System.out.println(result);
+    }
+
+    @Test
+    public void testSearchValWithWhere() {
+        List<Man> result = manMapper.searchListWithWhereCondition("", "g");
+        System.out.println(result);
+    }
+
+    @Test
+    public void testSearchWithChoose() {
+        List<Man> result = manMapper.searchListWithChoose("王", "");
+        System.out.println(result);
+    }
+
+    @Test
+    public void testSearchWithForeach() {
+        List<String> names = Arrays.asList("王五", "李斯");
+        List<Man> result = manMapper.searchListWithForeach(names);
+        System.out.println(result);
+    }
+
+    @Test
+    public void testInsertBatch() {
+        Man man1 = new Man(null, "name-abc", 10, "wer456");
+        Man man2 = new Man(null, "name-iop", 19, "uio890");
+        List<Man> men = Arrays.asList(man1, man2);
+        manMapper.insertBatch(men);
+    }
+
+    @Test
+    public void testSelectAllWithInclude() {
+        List<Man> men = manMapper.selectAll();
+        men.forEach(System.out::println);
     }
 }
