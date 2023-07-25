@@ -116,5 +116,37 @@
         </foreach>
     </select>
 
+    <resultMap id="manResultMap" type="com.ni.mybatisdemo.entity.Man">
+        <id property="id" column="id"/>
+        <result property="age" column="age"/>
+        <result property="name" column="name"/>
+        <result property="telephone" column="telephone"/>
+        <association property="myClazz" javaType="com.ni.mybatisdemo.entity.Clazz">
+            <id property="id" column="class_id"/>
+            <result property="name" column="name"/>
+            <result property="numberOfPeople" column="number_of_people"/>
+        </association>
+    </resultMap>
+
+    <select id="selectDetailById" resultMap="manResultMap">
+        select t1.id, t1.name,t1.age,t1.telephone,
+        t2.id as class_id,t2.name as class_name,t2.number_of_people as number_of_people
+        from man as t1 left join class as t2 on t1.class_id=t2.id
+        where t1.id=#{id}
+    </select>
+
+    <resultMap id="orderResultMap" type="com.ni.mybatisdemo.entity.ManWithOrder" extends="manResultMap">
+        <association property="orders" javaType="com.ni.mybatisdemo.entity.Order">
+            <id property="id" column="order_id"/>
+            <result property="goodsName" column="goods_name"/>
+            <result property="price" column="price"/>
+            <result property="quantity" column="quantity"/>
+        </association>
+    </resultMap>
+
+    <select id="selectOrderDetailsById" resultMap="orderResultMap">
+        select * from man
+    </select>
+
 
 </mapper>

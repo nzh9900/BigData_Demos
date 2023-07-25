@@ -1,6 +1,7 @@
 package com.ni.mybatisdemo.mapper;
 
 import com.ni.mybatisdemo.entity.Man;
+import com.ni.mybatisdemo.entity.ManWithOrder;
 import org.apache.ibatis.annotations.MapKey;
 
 import java.util.List;
@@ -41,4 +42,8 @@ public interface ManMapper {
     void insertBatch(List<Man> men);
 
     List<Man> selectAll();
+
+    Man selectDetailById(int id);
+
+    ManWithOrder selectOrderDetailsById(int userId);
 }
