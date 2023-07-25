@@ -136,16 +136,20 @@
     </select>
 
     <resultMap id="orderResultMap" type="com.ni.mybatisdemo.entity.ManWithOrder" extends="manResultMap">
-        <association property="orders" javaType="com.ni.mybatisdemo.entity.Order">
+        <collection property="orders" ofType="com.ni.mybatisdemo.entity.Order">
             <id property="id" column="order_id"/>
             <result property="goodsName" column="goods_name"/>
             <result property="price" column="price"/>
             <result property="quantity" column="quantity"/>
-        </association>
+        </collection>
     </resultMap>
-
     <select id="selectOrderDetailsById" resultMap="orderResultMap">
-        select * from man
+        select t1.id, t1.name,t1.age,t1.telephone,
+        t2.id as class_id,t2.name as class_name,t2.number_of_people as number_of_people,
+        t3.id as order_id,t3.goods_name as goods_name,t3.price as price,t3.quantity as quantity
+        from man as t1 left join class as t2 on t1.class_id=t2.id
+        left join `order` as t3 on t1.id=t3.user_id
+        where t1.id=#{id}
     </select>
 
 

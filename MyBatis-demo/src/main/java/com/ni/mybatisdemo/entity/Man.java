@@ -1,9 +1,6 @@
 package com.ni.mybatisdemo.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 /**
  * @ClassName Man

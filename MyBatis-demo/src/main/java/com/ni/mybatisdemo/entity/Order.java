@@ -1,6 +1,8 @@
 package com.ni.mybatisdemo.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
@@ -11,9 +13,10 @@ import java.math.BigDecimal;
  * @Version 1.0
  **/
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Order {
     private long id;
-    private long userId;
     private String goodsName;
     private BigDecimal price;
     private int quantity;
