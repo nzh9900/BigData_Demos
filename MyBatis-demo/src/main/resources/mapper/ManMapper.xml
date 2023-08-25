@@ -129,10 +129,16 @@
     </resultMap>
 
     <select id="selectDetailById" resultMap="manResultMap">
-        select t1.id, t1.name,t1.age,t1.telephone,
-        t2.id as class_id,t2.name as class_name,t2.number_of_people as number_of_people
-        from man as t1 left join class as t2 on t1.class_id=t2.id
-        where t1.id=#{id}
+        select t1.id,
+               t1.name,
+               t1.age,
+               t1.telephone,
+               t2.id               as class_id,
+               t2.name             as class_name,
+               t2.number_of_people as number_of_people
+        from man as t1
+                 left join class as t2 on t1.class_id = t2.id
+        where t1.id = #{id}
     </select>
 
     <resultMap id="orderResultMap" type="com.ni.mybatisdemo.entity.ManWithOrder" extends="manResultMap">
@@ -144,12 +150,21 @@
         </collection>
     </resultMap>
     <select id="selectOrderDetailsById" resultMap="orderResultMap">
-        select t1.id, t1.name,t1.age,t1.telephone,
-        t2.id as class_id,t2.name as class_name,t2.number_of_people as number_of_people,
-        t3.id as order_id,t3.goods_name as goods_name,t3.price as price,t3.quantity as quantity
-        from man as t1 left join class as t2 on t1.class_id=t2.id
-        left join `order` as t3 on t1.id=t3.user_id
-        where t1.id=#{id}
+        select t1.id,
+               t1.name,
+               t1.age,
+               t1.telephone,
+               t2.id               as class_id,
+               t2.name             as class_name,
+               t2.number_of_people as number_of_people,
+               t3.id               as order_id,
+               t3.goods_name       as goods_name,
+               t3.price            as price,
+               t3.quantity         as quantity
+        from man as t1
+                 left join class as t2 on t1.class_id = t2.id
+                 left join `order` as t3 on t1.id = t3.user_id
+        where t1.id = #{id}
     </select>
 
 
