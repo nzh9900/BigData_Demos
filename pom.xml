@@ -29,6 +29,7 @@
         <module>s3-api</module>
         <module>algorithm</module>
         <module>Utils</module>
+        <module>jdbc</module>
     </modules>
 
     <properties>
