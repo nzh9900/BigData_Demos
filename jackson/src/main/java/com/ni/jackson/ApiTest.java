@@ -1,7 +1,13 @@
 package com.ni.jackson;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.json.JsonReadFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 /**
  * @ClassName ApiTest
@@ -21,9 +27,33 @@ public class ApiTest {
         System.out.println(user);
     }
 
-    public static void main(String[] args) throws JsonProcessingException {
+    public static void main(String[] args) throws IOException {
         ApiTest apiTest = new ApiTest();
-        apiTest.readValue();
+        //apiTest.readValue();
+        //readValueInAnotherWay();
+        readValueFromFile("jackson/src/main/resources/json.txt");
+    }
 
+
+    public static void readValueInAnotherWay() throws JsonProcessingException {
+        ObjectMapper objectMapper1 = JsonMapper.builder()
+                .enable(JsonReadFeature.ALLOW_BACKSLASH_ESCAPING_ANY_CHARACTER)
+                .build();
+
+        User user = objectMapper1.readValue(USER01, User.class);
+        System.out.println(user);
+    }
+
+    public static void readValueFromFile(String filePath) throws IOException {
+        ObjectMapper objectMapper1 = JsonMapper.builder()
+                .enable(JsonReadFeature.ALLOW_BACKSLASH_ESCAPING_ANY_CHARACTER)
+                .build();
+        BufferedReader reader = new BufferedReader(new FileReader(filePath));
+        String line = reader.readLine();
+        while (line != null) {
+            User user = objectMapper1.readValue(line, User.class);
+            System.out.println(user);
+            line = reader.readLine();
+        }
     }
 }
