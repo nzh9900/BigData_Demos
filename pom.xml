@@ -30,6 +30,7 @@
         <module>algorithm</module>
         <module>Utils</module>
         <module>jdbc</module>
+        <module>flink-from-book</module>
     </modules>
 
     <properties>
