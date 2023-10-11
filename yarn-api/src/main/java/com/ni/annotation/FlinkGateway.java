@@ -1,4 +1,4 @@
-package com.ni.flink;
+package com.ni.annotation;
 
 import org.apache.flink.configuration.Configuration;
 import org.apache.flink.configuration.GlobalConfiguration;

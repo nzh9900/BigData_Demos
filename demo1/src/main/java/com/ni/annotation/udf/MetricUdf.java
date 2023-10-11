@@ -1,4 +1,4 @@
-package com.ni.flink.udf;
+package com.ni.annotation.udf;
 
 import org.apache.flink.metrics.Counter;
 import org.apache.flink.table.functions.FunctionContext;
