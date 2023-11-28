@@ -3,6 +3,8 @@ package com.ni.demos;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
 /**
  * @ClassName FastJsonTest
@@ -27,10 +29,19 @@ public class FastJsonTest {
 
     /**
      * 使用JSON.parseObject解析JSON ARRAY 无法解析成功
+     *
      * @param arrayString
      * @return
      */
-    public static JSONObject parseObjectFromArrayString(String arrayString){
+    public static JSONObject parseObjectFromArrayString(String arrayString) {
         return JSON.parseObject(arrayString);
     }
+}
+
+@Data
+@AllArgsConstructor
+class Student {
+    private String name;
+    private Integer age;
+    private Student childStudent;
 }
