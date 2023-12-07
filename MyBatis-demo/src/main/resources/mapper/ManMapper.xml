@@ -13,7 +13,8 @@
     </select>
 
     <insert id="insert">
-        insert into man (name,age,telephone) values(#{name},#{age},#{telephone})
+        insert into man (name, age, telephone)
+        values (#{name}, #{age}, #{telephone})
     </insert>
 
     <insert id="insertBatch">
@@ -24,19 +25,28 @@
     </insert>
 
     <update id="update">
-        update man set name=#{name},age=#{age},telephone=#{telephone} where id=#{id}
+        update man
+        set name=#{name},
+            age=#{age},
+            telephone=#{telephone}
+        where id = #{id}
     </update>
 
     <delete id="delete">
-        delete from man where id = #{id}
+        delete
+        from man
+        where id = #{id}
     </delete>
 
     <select id="getManById" resultType="com.ni.mybatisdemo.entity.Man">
-        select * from man where id = #{id}
+        select *
+        from man
+        where id = #{id}
     </select>
 
     <select id="selectAllAsMap" resultType="java.util.Map">
-        select * from man
+        select *
+        from man
     </select>
 
     <!--
