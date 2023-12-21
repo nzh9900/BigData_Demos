@@ -18,17 +18,21 @@ public class Oracle {
     public static void main(String[] args) {
         String ip = "dataBase";
         int port = 1521;
-        String sidUrl = getSidUrl(ip, port, "helowin2");
+        String sidUrl = getSidUrl(ip, port, "helowin");
         String serviceNameUrl = getServiceNameUrl(ip, port, "helowin");
         String user = "test";
         String password = "Ab123456";
         try {
             log.info("get connection");
             Connection connection = DriverManager.getConnection(sidUrl, user, password);
-            PreparedStatement preparedStatement = connection.prepareStatement("select 1 from dual");
+            PreparedStatement preparedStatement = connection.prepareStatement("select * from TEST.CDC_TEST");
             ResultSet resultSet = preparedStatement.executeQuery();
-            resultSet.next();
-            System.out.println(resultSet.getInt(1));
+            while (resultSet.next()) {
+                int id = resultSet.getInt(1);
+                String name = resultSet.getString(2);
+                byte[] bytes = resultSet.getBytes(2);
+                log.info("id:{},name:{},name bytes:{}", id, name, bytes);
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
