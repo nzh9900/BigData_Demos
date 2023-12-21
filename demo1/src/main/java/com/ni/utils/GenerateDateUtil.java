@@ -1,6 +1,9 @@
 package com.ni.utils;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -8,19 +11,34 @@ import java.util.GregorianCalendar;
 
 public class GenerateDateUtil {
     public static void main(String[] args) throws IOException {
-        printDate(365, new Date());
+        Calendar instance = Calendar.getInstance();
+        instance.set(2024, Calendar.JANUARY, 1);
+        Date time = instance.getTime();
+        printDate(365, time, ContentFormat.SQL);
     }
 
-    private static void printDate(long numberOfDays, Date startDate) throws IOException {
-        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(new File("/Users/ni/Nutstore Files/work_document/everything.txt"),true));
+    private static void printDate(long numberOfDays, Date startDate, ContentFormat contentFormat) throws IOException {
+        File file = new File("/tmp/date-Template.txt");
+        if (!file.exists()) {
+            file.createNewFile();
+        }
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file, true));
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         GregorianCalendar gregorianCalendar = new GregorianCalendar();
 
         for (int i = 0; i < numberOfDays; i++) {
+            String format;
+            if (ContentFormat.SQL.equals(contentFormat)) {
+                format = "-- =============================================%s=============================================%n%n%n%n%n%n%n%n%n%n";
+            } else if (ContentFormat.TEXT.equals(contentFormat)) {
+                format = "=============================================%s=============================================%n%n%n%n%n%n%n%n%n%n";
+            } else {
+                format = "=============================================%s=============================================%n%n%n%n%n%n%n%n%n%n";
+            }
             bufferedWriter.append(
                     String.format(
-                            "=============================================%s=============================================%n%n%n%n%n%n%n%n%n%n",
+                            format,
                             sdf.format(startDate)));
 
             gregorianCalendar.setTime(startDate);
@@ -32,4 +50,9 @@ public class GenerateDateUtil {
         bufferedWriter.close();
 
     }
+}
+
+enum ContentFormat {
+    SQL,
+    TEXT
 }
