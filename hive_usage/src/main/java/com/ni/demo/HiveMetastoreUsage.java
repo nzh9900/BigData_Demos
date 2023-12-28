@@ -47,6 +47,7 @@ public class HiveMetastoreUsage {
         partitionKeys.forEach(fieldSchema -> System.out.println(fieldSchema.getName()));
 
         List<FieldSchema> fields = hiveMetastoreUsage.getFields("default", "test_888");
+        System.out.println(fields);
         hiveMetastoreUsage.printFieldDetail(fields.get(0));
     }
 

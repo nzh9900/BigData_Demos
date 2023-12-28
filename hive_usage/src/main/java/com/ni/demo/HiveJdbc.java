@@ -1,9 +1,5 @@
 package com.ni.demo;
 
-import org.apache.hadoop.conf.Configuration;
-import org.apache.hadoop.security.UserGroupInformation;
-
-import java.io.IOException;
 import java.sql.SQLException;
 
 /**
