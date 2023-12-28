@@ -19,6 +19,7 @@
     </properties>
 
     <dependencies>
+        <!--        hive 2.1.1-->
         <dependency>
             <groupId>org.apache.hive</groupId>
             <artifactId>hive-metastore</artifactId>
@@ -29,6 +30,38 @@
             <artifactId>hadoop-common</artifactId>
             <version>2.6.1</version>
         </dependency>
+
+        <!--&lt;!&ndash;cdh5&ndash;&gt;
+        <dependency>
+            <groupId>org.apache.hive</groupId>
+            <artifactId>hive-metastore</artifactId>
+            <version>1.1.0-cdh5.15.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-common</artifactId>
+            <version>2.6.0-cdh5.15.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-mapreduce-client-core</artifactId>
+            <version>2.6.0-cdh5.15.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-mapreduce-client-common</artifactId>
+            <version>2.6.0-cdh5.15.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.hive</groupId>
+            <artifactId>hive-exec</artifactId>
+            <version>1.1.0-cdh5.15.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.hive</groupId>
+            <artifactId>hive-jdbc</artifactId>
+            <version>1.1.0-cdh5.15.1</version>
+        </dependency>-->
     </dependencies>
 
 </project>
