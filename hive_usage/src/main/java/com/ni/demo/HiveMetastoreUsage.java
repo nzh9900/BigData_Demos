@@ -35,7 +35,7 @@ public class HiveMetastoreUsage {
         conf.set("hadoop.security.authorization", "true");
         UserGroupInformation.setConfiguration(conf);
         try {
-            UserGroupInformation.loginUserFromKeytab(principal, keytabFile);
+            UserGroupInformation.loginUserFromKeytabAndReturnUGI(principal, keytabFile);
             System.out.println("认证方式和用户: " + UserGroupInformation.getLoginUser());
         } catch (IOException e) {
             e.printStackTrace();
