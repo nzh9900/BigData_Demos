@@ -14,7 +14,7 @@ public class GenerateDateUtil {
         Calendar instance = Calendar.getInstance();
         instance.set(2024, Calendar.JANUARY, 1);
         Date time = instance.getTime();
-        printDate(365, time, ContentFormat.SQL);
+        printDate(365, time, ContentFormat.TEXT);
     }
 
     private static void printDate(long numberOfDays, Date startDate, ContentFormat contentFormat) throws IOException {
