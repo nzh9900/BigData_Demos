@@ -32,6 +32,7 @@
         <module>jdbc</module>
         <module>annotation</module>
         <module>common</module>
+        <module>data-mock</module>
     </modules>
 
     <properties>

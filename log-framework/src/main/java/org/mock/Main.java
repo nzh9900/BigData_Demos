@@ -1,4 +1,4 @@
-package org.example;
+package org.mock;
 
 
 import org.slf4j.Logger;
