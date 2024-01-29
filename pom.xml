@@ -33,6 +33,7 @@
         <module>annotation</module>
         <module>common</module>
         <module>data-mock</module>
+        <module>hdfs-api</module>
     </modules>
 
     <properties>
