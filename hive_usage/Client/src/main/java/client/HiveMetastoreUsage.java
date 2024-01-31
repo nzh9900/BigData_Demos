@@ -1,4 +1,4 @@
-package com.ni.demo;
+package client;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;

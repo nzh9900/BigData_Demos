@@ -8,6 +8,7 @@ import org.apache.hive.jdbc.logs.InPlaceUpdateStream;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.nio.charset.StandardCharsets;
 import java.security.PrivilegedExceptionAction;
 import java.sql.*;
 import java.util.List;
@@ -20,9 +21,8 @@ import java.util.List;
  * @Version 1.0
  **/
 public class HiveJdbc {
-    public static void main(String[] args) throws SQLException {
+    public void handle(String[] args) throws SQLException {
         HiveJdbc hiveJdbc = new HiveJdbc();
-        //String jdbcUrl = "jdbc:hive2://node22.test.com:10000/default;principal=hive/node20.test.com@TEST.COM";
         String jdbcUrl = "jdbc:hive2://kafka03.test.com:10000/default;principal=hive/kafka03.test.com@TEST.COM";
         String principal = "idp";
         String keytabFile = "/opt/idp.keytab";
@@ -99,7 +99,7 @@ public class HiveJdbc {
                         List<String> queryLogList = hiveStatement.getQueryLog();
                         if (!queryLogList.isEmpty()) eventNotifier.operationLogShowedToUser();
                         for (String log : queryLogList) {
-                            logStream.write(log.getBytes());
+                            logStream.write((log + System.lineSeparator()).getBytes(StandardCharsets.UTF_8));
                         }
                         Thread.sleep(1000);
                     } catch (Exception e) {
