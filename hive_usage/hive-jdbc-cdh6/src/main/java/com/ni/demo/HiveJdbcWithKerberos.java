@@ -17,14 +17,14 @@ import java.util.List;
  * @Date 2023/12/27 14:18
  * @Version 1.0
  **/
-public class HiveJdbc {
+public class HiveJdbcWithKerberos {
     public void handle(String[] args) throws SQLException {
-        HiveJdbc hiveJdbc = new HiveJdbc();
+        HiveJdbcWithKerberos hiveJdbcWithKerberos = new HiveJdbcWithKerberos();
         String jdbcUrl = "jdbc:hive2://node22.test.com:10000/default;principal=hive/node20.test.com@TEST.COM";
         String principal = "idp";
         String keytabFile = "/opt/idp.keytab";
-        try (Connection connection = hiveJdbc.getConnection(jdbcUrl, principal, keytabFile)) {
-            hiveJdbc.executeSql(connection, "select count(1) from default.cat");
+        try (Connection connection = hiveJdbcWithKerberos.getConnection(jdbcUrl, principal, keytabFile)) {
+            hiveJdbcWithKerberos.executeSql(connection, "select count(1) from default.cat");
         }
     }
 

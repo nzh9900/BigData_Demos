@@ -35,18 +35,18 @@ public class HiveMetastoreUsage {
         conf.set("hadoop.security.authorization", "true");
         UserGroupInformation.setConfiguration(conf);
         try {
-            UserGroupInformation.loginUserFromKeytabAndReturnUGI(principal, keytabFile);
+            UserGroupInformation.loginUserFromKeytab(principal, keytabFile);
             System.out.println("认证方式和用户: " + UserGroupInformation.getLoginUser());
         } catch (IOException e) {
             e.printStackTrace();
         }
         hiveMetastoreUsage.getConnection();
 
-        List<FieldSchema> partitionKeys = hiveMetastoreUsage.getPartitionKeys("default", "test_888");
+        List<FieldSchema> partitionKeys = hiveMetastoreUsage.getPartitionKeys("idp", "books");
         System.out.println(partitionKeys.size());
         partitionKeys.forEach(fieldSchema -> System.out.println(fieldSchema.getName()));
 
-        List<FieldSchema> fields = hiveMetastoreUsage.getFields("default", "test_888");
+        List<FieldSchema> fields = hiveMetastoreUsage.getFields("idp", "books");
         System.out.println(fields);
         hiveMetastoreUsage.printFieldDetail(fields.get(0));
     }
@@ -58,11 +58,17 @@ public class HiveMetastoreUsage {
      */
     private void getConnection() throws MetaException {
         HiveConf conf = new HiveConf();
-        conf.addResource(new Path("/Users/ni/IdeaProjects/Work_Demos/hive_usage/src/main/resources/hive-site-cdh6.xml"));
-        //conf.set("hive.metastore.uris", "thrift://node22.test.com:9083,thrift://node23.test.com:9083");
-        System.out.println(System.currentTimeMillis());
+        //conf.addResource(new Path("/Users/ni/IdeaProjects/Work_Demos/hive_usage/Client/src/main/resources/hive-site-cdp.xml"));
+        conf.set("hive.metastore.uris", "thrift://kafka02.test.com:9083,thrift://kafka03.test.com:9083");
+        conf.set("hive.metastore.execute.setugi", "true");
+        conf.set("hive.metastore.sasl.enabled", "true");
+        conf.set("hive.metastore.kerberos.principal", "hive/_HOST@TEST.COM");
+        conf.set("hive.metastore.warehouse.dir", "/warehouse/tablespace/managed/hive");
+        conf.set("hive.metastore.warehouse.external.dir", "/warehouse/tablespace/external/hive");
+        conf.set("hive.compute.query.using.stats", "true");
+        conf.set("hive.zookeeper.quorum", "kafka03.test.com");
+        conf.set("hive.zookeeper.client.port", "2181");
         hiveMetaStoreClient = new HiveMetaStoreClient(conf);
-        System.out.println(System.currentTimeMillis());
     }
 
     /**
@@ -121,10 +127,11 @@ public class HiveMetastoreUsage {
     private void printFieldDetail(FieldSchema field) {
         String comment = field.getComment();
         System.out.println(comment);
-        System.out.println();
-        for (int i = 0; i < comment.length(); i++) {
-            char c = comment.charAt(i);
-            System.out.println(i + ":" + ('\n' == c) + ":" + c);
+        if (comment != null) {
+            for (int i = 0; i < comment.length(); i++) {
+                char c = comment.charAt(i);
+                System.out.println(i + ":" + ('\n' == c) + ":" + c);
+            }
         }
     }
 
