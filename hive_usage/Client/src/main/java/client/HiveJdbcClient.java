@@ -1,6 +1,6 @@
 package client;
 
-import com.ni.demo.HiveJdbc;
+import com.ni.demo.HiveJdbcWithKerberos;
 
 import java.sql.SQLException;
 
@@ -13,7 +13,7 @@ import java.sql.SQLException;
  **/
 public class HiveJdbcClient {
     public static void main(String[] args) throws SQLException {
-        HiveJdbc hiveJdbc = new HiveJdbc();
-        hiveJdbc.handle(new String[]{});
+        HiveJdbcWithKerberos hiveJdbcWithKerberos = new HiveJdbcWithKerberos();
+        hiveJdbcWithKerberos.handle(new String[]{});
     }
 }

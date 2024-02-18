@@ -20,14 +20,14 @@ import java.util.List;
  * @Date 2023/12/27 14:18
  * @Version 1.0
  **/
-public class HiveJdbc {
+public class HiveJdbcWithKerberos {
     public void handle(String[] args) throws SQLException {
-        HiveJdbc hiveJdbc = new HiveJdbc();
+        HiveJdbcWithKerberos hiveJdbcWithKerberos = new HiveJdbcWithKerberos();
         String jdbcUrl = "jdbc:hive2://kafka03.test.com:10000/default;principal=hive/kafka03.test.com@TEST.COM";
         String principal = "idp";
         String keytabFile = "/opt/idp.keytab";
-        try (Connection connection = hiveJdbc.getConnection(jdbcUrl, principal, keytabFile)) {
-            hiveJdbc.executeSql(connection, "select count(1) from default.tag");
+        try (Connection connection = hiveJdbcWithKerberos.getConnection(jdbcUrl, principal, keytabFile)) {
+            hiveJdbcWithKerberos.executeSql(connection, "select count(1) from default.tag");
         }
     }
 
@@ -50,7 +50,7 @@ public class HiveJdbc {
         return connection;
     }
 
-    public void executeSql(Connection connection, String sql) {
+    private void executeSql(Connection connection, String sql) {
         try (Statement statement = connection.createStatement()) {
             InPlaceUpdateStream.EventNotifier eventNotifier =
                     new InPlaceUpdateStream.EventNotifier();
@@ -88,7 +88,7 @@ public class HiveJdbc {
         }
     }
 
-    public Runnable createQueryLogRunnable(Statement statement,
+    private Runnable createQueryLogRunnable(Statement statement,
                                            InPlaceUpdateStream.EventNotifier eventNotifier,
                                            ByteArrayOutputStream logStream) {
         if (statement instanceof HiveStatement) {
@@ -114,7 +114,7 @@ public class HiveJdbc {
         }
     }
 
-    public Runnable createAllLogRunnable(Statement statement) {
+    private Runnable createAllLogRunnable(Statement statement) {
         if (statement instanceof HiveStatement) {
             HiveStatement hiveStatement = (HiveStatement) statement;
             return () -> {
