@@ -9,11 +9,12 @@ public class Main {
         Main main = new Main();
         Optional<Member> member = main.getMember();
         member.ifPresent(item -> System.out.println(item.getName()));
+        System.out.println("2:" + member.map(Member::getName).orElse("asd"));
     }
 
     private Optional<Member> getMember() {
 
-        return Optional.of(new Member("my name"));
+        return Optional.ofNullable(null);
     }
 
 
