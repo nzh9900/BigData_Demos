@@ -35,6 +35,7 @@
         <module>data-mock</module>
         <module>hdfs-api</module>
         <module>Flink_restful_api</module>
+        <module>Flink-SQL</module>
     </modules>
 
     <properties>
