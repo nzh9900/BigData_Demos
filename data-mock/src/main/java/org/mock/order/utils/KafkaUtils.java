@@ -31,9 +31,11 @@ public class KafkaUtils {
                 if (buffer.size() < batchSize) {
                     buffer.add(message);
                 } else {
-                    ProducerRecord<String, String> record =
-                            new ProducerRecord<>(topic, message);
-                    kafkaProducer.send(record);
+                    buffer.forEach(msg -> {
+                        ProducerRecord<String, String> record =
+                                new ProducerRecord<>(topic, msg);
+                        kafkaProducer.send(record);
+                    });
                     buffer.clear();
                     Thread.sleep(interval.toMillis());
                 }

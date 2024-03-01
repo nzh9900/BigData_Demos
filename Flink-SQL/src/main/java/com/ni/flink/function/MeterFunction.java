@@ -1,7 +1,6 @@
 package com.ni.flink.function;
 
-import org.apache.flink.metrics.Counter;
-import org.apache.flink.metrics.MetricGroup;
+import org.apache.flink.metrics.*;
 import org.apache.flink.table.catalog.DataTypeFactory;
 import org.apache.flink.table.functions.FunctionContext;
 import org.apache.flink.table.functions.FunctionDefinition;
@@ -15,29 +14,33 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * @ClassName CountMessageFunction
+ * @ClassName MeterFunction
  * @Description
  * @Author zihao.ni
- * @Date 2024/2/23 16:47
+ * @Date 2024/2/29 15:17
  * @Version 1.0
  **/
-public class CountMessageFunction extends ScalarFunction {
-    private transient Counter counter;
+public class MeterFunction extends ScalarFunction {
+    private Meter meter;
     private final String counterName;
+    private final String meterName;
     private final String groupName;
     private final DataType dataType;
 
 
-    public CountMessageFunction(String groupName, String counterName, DataType dataType) {
+    public MeterFunction(String groupName, String counterName, String meterName, DataType dataType) {
         this.groupName = groupName;
         this.counterName = counterName;
+        this.meterName = meterName;
         this.dataType = dataType;
     }
 
     @Override
     public void open(FunctionContext context) throws Exception {
         MetricGroup metricGroup = context.getMetricGroup().addGroup(groupName);
-        this.counter = metricGroup.counter(counterName);
+        Counter counter = metricGroup.counter(counterName, new SimpleCounter());
+        this.meter = new MeterView(counter, 60);
+        metricGroup.meter(meterName, meter);
     }
 
     //@DataTypeHint(version = ExtractionVersion.V1, value = "TIMESTAMP(3)")
@@ -47,15 +50,15 @@ public class CountMessageFunction extends ScalarFunction {
     //}
 
     public Object eval(Object o) {
-        counter.inc();
+        meter.markEvent();
         return o;
     }
 
     @Override
     public TypeInference getTypeInference(DataTypeFactory typeFactory) {
         return TypeInference.newBuilder()
-                .inputTypeStrategy(new MyInputTypeStrategy())
-                .outputTypeStrategy(new MyOutputTypeStrategy())
+                .inputTypeStrategy(new MeterFunction.MyInputTypeStrategy())
+                .outputTypeStrategy(new MeterFunction.MyOutputTypeStrategy())
                 .build();
     }
 
@@ -89,84 +92,4 @@ public class CountMessageFunction extends ScalarFunction {
             return Optional.of(dataType);
         }
     }
-
-    /*public String eval(String value) {
-        counter.inc();
-        return value;
-    }
-
-    public Integer eval(Integer value) {
-        counter.inc();
-        return value;
-    }
-
-    public Double eval(Double value) {
-        counter.inc();
-        return value;
-    }
-
-    public Long eval(Long value) {
-        counter.inc();
-        return value;
-    }
-
-    public Boolean eval(Boolean value) {
-        counter.inc();
-        return value;
-    }
-
-    public Byte eval(Byte value) {
-        counter.inc();
-        return value;
-    }
-
-    public Short eval(Short value) {
-        counter.inc();
-        return value;
-    }
-
-    public Float eval(Float value) {
-        counter.inc();
-        return value;
-    }
-
-    public LocalDate eval(LocalDate value) {
-        counter.inc();
-        return value;
-    }
-
-    public Date eval(Date value) {
-        counter.inc();
-        return value;
-    }
-
-    public Time eval(Time value) {
-        counter.inc();
-        return value;
-    }
-
-    public LocalTime eval(LocalTime value) {
-        counter.inc();
-        return value;
-    }
-
-    public LocalDateTime eval(LocalDateTime value) {
-        counter.inc();
-        return value;
-    }
-
-    public Timestamp eval(Timestamp value) {
-        counter.inc();
-        return value;
-    }
-
-    public OffsetDateTime eval(OffsetDateTime value) {
-        counter.inc();
-        return value;
-    }
-
-    public Duration eval(Duration value) {
-        counter.inc();
-        return value;
-    }*/
 }

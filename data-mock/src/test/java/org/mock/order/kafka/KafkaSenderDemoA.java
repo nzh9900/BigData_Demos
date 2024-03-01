@@ -23,7 +23,7 @@ public class KafkaSenderDemoA {
         }
         KafkaUtils.sendToKafka(
                 "10.24.68.224:9092",
-                "test",
+                "abcd",
                 messageList,
                 1000,
                 Duration.ofSeconds(1)

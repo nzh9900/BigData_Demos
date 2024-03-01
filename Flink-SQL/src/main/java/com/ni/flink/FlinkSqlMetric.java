@@ -1,6 +1,7 @@
 package com.ni.flink;
 
 import com.ni.flink.function.CountMessageFunction;
+import com.ni.flink.function.MeterFunction;
 import org.apache.flink.configuration.Configuration;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.table.api.bridge.java.StreamTableEnvironment;
@@ -11,8 +12,8 @@ import org.apache.flink.table.types.DataType;
  */
 public class FlinkSqlMetric {
     public static void main(String[] args) throws Exception {
-        //FlinkSqlMetric.kafkaTest(new String[]{""});
-        FlinkSqlMetric.cdcTest();
+        FlinkSqlMetric.kafkaTest(new String[]{""});
+        //FlinkSqlMetric.cdcTest();
 
     }
 
@@ -57,6 +58,7 @@ public class FlinkSqlMetric {
     public static void kafkaTest(String[] args) throws Exception {
         StreamExecutionEnvironment env =
                 StreamExecutionEnvironment.createLocalEnvironmentWithWebUI(new Configuration());
+        env.setParallelism(1);
         StreamTableEnvironment tEnv = StreamTableEnvironment.create(env);
         tEnv.executeSql("CREATE TABLE fact_table (\n" +
                 "  `id` STRING,\n" +
@@ -86,8 +88,20 @@ public class FlinkSqlMetric {
 
         DataType dataType = tEnv.from("sink_table").getResolvedSchema().getColumn(0).get().getDataType();
 
-        tEnv.createTemporaryFunction("count_message", new CountMessageFunction("MyGroup", "sourceKafka", dataType));
-        tEnv.createTemporaryFunction("count_sink", new CountMessageFunction("MyGroup", "sinkKafka", dataType));
+        tEnv.createTemporaryFunction(
+                "count_message",
+                new MeterFunction(
+                        "MyGroup",
+                        "sourceKafkaCounter",
+                        "sourceKafkaMeter",
+                        dataType));
+        tEnv.createTemporaryFunction(
+                "count_sink",
+                new MeterFunction(
+                        "MyGroup",
+                        "sinkKafkaCounter",
+                        "sinkKafkaMeter",
+                        dataType));
 
         tEnv.executeSql("insert into sink_table select id,ts as ts from (select count_sink(id) as id,ts as ts from fact_table)");
 
