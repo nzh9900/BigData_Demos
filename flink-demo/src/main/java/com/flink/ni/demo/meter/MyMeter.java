@@ -1,4 +1,4 @@
-package com.flink.ni.demo.chapter1.meter;
+package com.flink.ni.demo.meter;
 
 import org.apache.flink.metrics.Meter;
 

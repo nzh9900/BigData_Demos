@@ -1,13 +1,10 @@
-package com.flink.ni.demo.chapter1.demo;
+package com.flink.ni.demo.demo;
 
-import com.flink.ni.demo.chapter1.function.MyNewRichFunction;
+import com.flink.ni.demo.function.MyNewRichFunction;
 import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.table.api.Table;
-import org.apache.flink.table.api.TableResult;
 import org.apache.flink.table.api.bridge.java.StreamTableEnvironment;
-import org.apache.flink.table.expressions.Expression;
-import org.apache.flink.table.expressions.LessThan;
 
 /**
  * @ClassName FlinkDemo01

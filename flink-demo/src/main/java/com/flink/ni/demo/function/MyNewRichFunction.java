@@ -1,6 +1,6 @@
-package com.flink.ni.demo.chapter1.function;
+package com.flink.ni.demo.function;
 
-import com.flink.ni.demo.chapter1.meter.MyMeter;
+import com.flink.ni.demo.meter.MyMeter;
 import org.apache.flink.api.common.functions.RichMapFunction;
 import org.apache.flink.configuration.Configuration;
 import org.apache.flink.metrics.Meter;
