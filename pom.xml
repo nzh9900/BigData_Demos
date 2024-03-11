@@ -36,6 +36,7 @@
         <module>hdfs-api</module>
         <module>Flink_restful_api</module>
         <module>Flink-SQL</module>
+        <module>hiveUdf</module>
     </modules>
 
     <properties>
