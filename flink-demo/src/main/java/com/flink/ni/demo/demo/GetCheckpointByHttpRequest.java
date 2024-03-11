@@ -1,11 +1,11 @@
 package com.flink.ni.demo.demo;
 
+import cn.hutool.http.HttpUtil;
 import com.alibaba.fastjson.JSON;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.flink.ni.demo.checkpoint.CheckPointOverView;
 import com.flink.ni.demo.common.Constants;
-import com.xiaoleilu.hutool.http.HttpUtil;
 
 import java.util.TimeZone;
 
