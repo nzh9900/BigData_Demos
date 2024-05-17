@@ -11,6 +11,9 @@ import org.junit.Test;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.temporal.ChronoField;
 import java.util.regex.Pattern;
 
 /**
@@ -84,16 +87,26 @@ public class Test01 {
 
     @Test
     public void getYarnState() {
-            try {
-                HttpClient httpClient = new HttpClient();
-                GetMethod getMethod = new GetMethod("http://10.24.32.23:8088/ws/v1/cluster/apps" + "/" + "application_1667201981464_146355");
-                httpClient.executeMethod(getMethod);
-                String response = getMethod.getResponseBodyAsString().trim();
-                JSONObject jsonObject = JSON.parseObject(response);
-                System.out.println(jsonObject);
-                getMethod.releaseConnection();
-            } catch (Exception e) {
-                System.out.println("error");
-            }
+        try {
+            HttpClient httpClient = new HttpClient();
+            GetMethod getMethod = new GetMethod("http://10.24.32.23:8088/ws/v1/cluster/apps" + "/" + "application_1667201981464_146355");
+            httpClient.executeMethod(getMethod);
+            String response = getMethod.getResponseBodyAsString().trim();
+            JSONObject jsonObject = JSON.parseObject(response);
+            System.out.println(jsonObject);
+            getMethod.releaseConnection();
+        } catch (Exception e) {
+            System.out.println("error");
+        }
+    }
+
+
+    @Test
+    public void testDateFormat() {
+        DateTimeFormatter formatter = new DateTimeFormatterBuilder()
+                .appendPattern("yyyy-MM-dd HH:mm:ss.SSSSSSS")
+                .parseDefaulting(ChronoField.DAY_OF_MONTH, 1)
+                .toFormatter();
+        System.out.println(formatter.parse("2019-07-01 00:12:31.7908120"));
     }
 }
