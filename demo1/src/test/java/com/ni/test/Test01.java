@@ -10,6 +10,10 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
@@ -18,7 +22,7 @@ import java.util.regex.Pattern;
 
 /**
  * @ClassName Test01
- * @Description todo
+ * @Description
  * @Author zihao.ni
  * @Date 2023/4/20 16:42
  * @Version 1.0
@@ -108,5 +112,22 @@ public class Test01 {
                 .parseDefaulting(ChronoField.DAY_OF_MONTH, 1)
                 .toFormatter();
         System.out.println(formatter.parse("2019-07-01 00:12:31.7908120"));
+    }
+
+    @Test
+    public void testDorisClusterConnection() throws ClassNotFoundException {
+        // 使用mysql jdbc连接数据库
+        String url = "jdbc:mysql:loadbalance://database:9031,database:9032,database:9033?useSSL=false";
+        String user = "root";
+        Class.forName("com.mysql.jdbc.Driver");
+        try (Connection connection = DriverManager.getConnection(url, user, "");) {
+            PreparedStatement statement = connection.prepareStatement("select 1");
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                System.out.println(resultSet.getString(1));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
