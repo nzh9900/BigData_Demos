@@ -9,6 +9,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -128,6 +130,18 @@ public class Test01 {
             }
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void writeFile() throws IOException {
+        FileWriter fileWriter = new FileWriter("/Users/ni/test.csv");
+        for (int i = 0; i < 100000; i++) {
+            for (int j = 0; j < 10; j++) {
+                fileWriter.write(String.valueOf(j) + " ");
+            }
+            fileWriter.write("\n");
+            fileWriter.flush();
         }
     }
 }
