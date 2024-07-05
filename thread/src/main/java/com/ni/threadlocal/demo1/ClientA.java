@@ -1,4 +1,4 @@
-package com.ni.threadlocal;
+package com.ni.threadlocal.demo1;
 
 /**
  * @ClassName ClientA

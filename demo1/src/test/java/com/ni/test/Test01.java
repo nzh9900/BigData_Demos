@@ -20,6 +20,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.ChronoField;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -143,5 +144,17 @@ public class Test01 {
             fileWriter.write("\n");
             fileWriter.flush();
         }
+    }
+
+    @Test
+    public void testPattern() {
+        String query = "MERGE INTO test.sink_test_pk t  USING (SELECT ? id, ? name FROM DUAL LIMIT 1 OVER(PARTITION BY id ORDER BY id)) s  ON (t.id=s.id)  WHEN MATCHED THEN UPDATE SET id=s.id, name=s.name WHEN NOT MATCHED THEN INSERT (id, name) VALUES (s.id, s.name)";
+        Pattern compile = Pattern.compile(
+                "\\s*MERGE\\s*INTO\\s*([\\w.]+)\\s*.*USING\\s*.*\\s*SELECT\\s*(.*)\\s*FROM\\s*(\\w*).*\\s*ON\\s*(.*)\\s*WHEN\\s*MATCHED\\s*.*");
+        Matcher matcher = compile.matcher(query);
+        matcher.find();
+        System.out.println(matcher.group(1));
+        System.out.println(matcher.group(2));
+        System.out.println(matcher.group(3));
     }
 }
