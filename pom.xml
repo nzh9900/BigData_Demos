@@ -37,6 +37,7 @@
         <module>Flink_restful_api</module>
         <module>Flink-SQL</module>
         <module>hiveUdf</module>
+        <module>proxy</module>
     </modules>
 
     <properties>
