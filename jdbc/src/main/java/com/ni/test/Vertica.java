@@ -1,6 +1,9 @@
 package com.ni.test;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.Properties;
 
 /**
@@ -23,19 +26,31 @@ public class Vertica {
             "WHEN MATCHED THEN UPDATE SET name=tp.name_2 " +
             "WHEN NOT MATCHED THEN INSERT (id, name) VALUES (tp.id_2,tp.name_2);";
 
-    private static final String INSERT_QUERY="insert into sink_test values(?,?)";
+    private static final String INSERT_QUERY = "insert into sink_test values(?,?)";
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
-        String url = "jdbc:vertica://10.24.96.223:5433/test";
+        Vertica vertica = new Vertica();
+        Connection connection = vertica.getConnection();
+
+        // insert test
+        vertica.insertTest(connection);
+    }
+
+    public Connection getConnection() throws ClassNotFoundException, SQLException {
+        String url = "jdbc:vertica://10.24.96.223:5433/test?LogLevel=DEBUG";
         Class.forName("com.vertica.jdbc.Driver");
         Properties info = new Properties();
         info.setProperty("user", "test");
         info.setProperty("password", "testpwd");
-        Connection connection = DriverManager.getConnection(url, info);
-        PreparedStatement preparedStatement = connection.prepareStatement(INSERT_QUERY);
-        preparedStatement.setInt(1,2);
-        preparedStatement.setString(2,"iop");
-        boolean execute = preparedStatement.execute();
-        System.out.println(preparedStatement.getUpdateCount());
+        return DriverManager.getConnection(url, info);
+    }
+
+    public void insertTest(Connection connection) throws SQLException {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(INSERT_QUERY)) {
+            preparedStatement.setInt(1, 2);
+            preparedStatement.setString(2, "iop");
+            boolean execute = preparedStatement.execute();
+            System.out.println(preparedStatement.getUpdateCount());
+        }
     }
 }
