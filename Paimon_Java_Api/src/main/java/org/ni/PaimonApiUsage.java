@@ -39,7 +39,6 @@ public class PaimonApiUsage {
     public Catalog getFileSystemCatalog() {
         kerberosAuth();
         Options options = new Options();
-        options.set("type", "filesystem");
         options.set("warehouse", "hdfs://nameservice1/user/hive/warehouse/");
         options.set("hadoop-conf-dir", "/opt/dashi_cluster_conf/hadoop_conf");
         CatalogContext context = CatalogContext.create(options);
