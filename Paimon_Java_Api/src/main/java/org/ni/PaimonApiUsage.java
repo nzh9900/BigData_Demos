@@ -1,5 +1,6 @@
 package org.ni;
 
+import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.security.UserGroupInformation;
 import org.apache.paimon.catalog.Catalog;
 import org.apache.paimon.catalog.CatalogContext;
@@ -15,8 +16,11 @@ import java.io.IOException;
 public class PaimonApiUsage {
     public static void main(String[] args) throws Catalog.DatabaseNotExistException, Catalog.TableNotExistException {
         PaimonApiUsage paimonApiUsage = new PaimonApiUsage();
+        // init Catalog
+        //Catalog hiveCatalog = paimonApiUsage.getHiveCatalog();
+        Catalog hiveCatalog = paimonApiUsage.getFileSystemCatalog();
+
         // print database
-        Catalog hiveCatalog = paimonApiUsage.getHiveCatalog();
         System.out.println(hiveCatalog.listDatabases());
 
         // print table list
@@ -30,6 +34,17 @@ public class PaimonApiUsage {
         }
         System.out.println("table options: " + table.options());
         System.out.println("primary keys: " + table.primaryKeys());
+    }
+
+    public Catalog getFileSystemCatalog() {
+        kerberosAuth();
+        Configuration hadoopConf = new Configuration();
+        Options options = new Options();
+        options.set("type", "filesystem");
+        options.set("warehouse", "hdfs://nameservice1/user/hive/warehouse/");
+        options.set("hadoop-conf-dir", "/opt/dashi_cluster_conf/hadoop_conf");
+        CatalogContext context = CatalogContext.create(options);
+        return CatalogFactory.createCatalog(context);
     }
 
     public Catalog getHiveCatalog() {
