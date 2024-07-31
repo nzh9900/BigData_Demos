@@ -38,6 +38,7 @@
         <module>Flink-SQL</module>
         <module>hiveUdf</module>
         <module>proxy</module>
+        <module>Paimon_Java_Api</module>
     </modules>
 
     <properties>
