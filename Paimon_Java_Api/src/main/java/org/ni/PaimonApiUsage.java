@@ -1,6 +1,5 @@
 package org.ni;
 
-import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.security.UserGroupInformation;
 import org.apache.paimon.catalog.Catalog;
 import org.apache.paimon.catalog.CatalogContext;
@@ -14,7 +13,7 @@ import org.apache.paimon.types.RowType;
 import java.io.IOException;
 
 public class PaimonApiUsage {
-    public static void main(String[] args) throws Catalog.DatabaseNotExistException, Catalog.TableNotExistException {
+    public static void main(String[] args) throws Exception {
         PaimonApiUsage paimonApiUsage = new PaimonApiUsage();
         // init Catalog
         //Catalog hiveCatalog = paimonApiUsage.getHiveCatalog();
@@ -34,6 +33,8 @@ public class PaimonApiUsage {
         }
         System.out.println("table options: " + table.options());
         System.out.println("primary keys: " + table.primaryKeys());
+
+        hiveCatalog.close();
     }
 
     public Catalog getFileSystemCatalog() {
