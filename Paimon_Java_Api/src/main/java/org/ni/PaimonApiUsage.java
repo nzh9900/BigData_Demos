@@ -38,7 +38,6 @@ public class PaimonApiUsage {
 
     public Catalog getFileSystemCatalog() {
         kerberosAuth();
-        Configuration hadoopConf = new Configuration();
         Options options = new Options();
         options.set("type", "filesystem");
         options.set("warehouse", "hdfs://nameservice1/user/hive/warehouse/");
