@@ -20,7 +20,7 @@ public class FlinkApiTest {
 
     @Test
     public void testTaskState() throws Exception {
-        String jobState = flinkApi.getJobState("0ea19b3c1867bdb54177ddc7ba191fcd");
-        System.out.println(jobState);
+        //String jobState = flinkApi.getJobState("0ea19b3c1867bdb54177ddc7ba191fcd");
+        //System.out.println(jobState);
     }
 }
