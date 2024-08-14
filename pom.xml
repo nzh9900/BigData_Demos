@@ -27,6 +27,7 @@
         <module>hive-udf</module>
         <module>paimon-java-api</module>
         <module>iceberg-java-api</module>
+        <module>kafka</module>
     </modules>
 
     <properties>
